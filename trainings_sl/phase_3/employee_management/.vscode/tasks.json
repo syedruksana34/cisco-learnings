@@ -1,0 +1,15 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "GitHub Copilot CLI login",
+			"type": "shell",
+			"command": "/home/ruksyed615/.local/node_modules/@github/copilot-linux-x64/copilot",
+			"args": [
+				"login",
+				"--device-code"
+			],
+			"isBackground": false
+		}
+	]
+}

@@ -1,0 +1,16 @@
+TestID,TestCase,Module,Priority,Status,DefectID,Severity,ExecutionTimeSec,Notes
+TC01,Transfer between own accounts,Transfer,High,Pass,,,2.1,
+TC02,Transfer to a saved payee,Transfer,High,Pass,,,2.4,
+TC03,Transfer to a new payee with OTP,Authentication,High,Fail,DEF-101,Critical,8.9,OTP not received within 60 seconds
+TC04,Transfer above the daily limit,Validation,High,Pass,,,1.8,Limit error shown correctly
+TC05,Transfer with insufficient balance,Validation,High,Pass,,,1.6,
+TC06,Transfer during network loss,Reliability,High,Fail,DEF-102,Major,30.0,Duplicate debit after automatic retry
+TC07,Schedule a future transfer,Transfer,Medium,Pass,,,2.2,
+TC08,Cancel a scheduled transfer,Transfer,Medium,Pass,,,1.9,
+TC09,Confirmation screen on small devices,UI,Medium,Fail,DEF-103,Minor,2.5,Confirm button hidden on 5-inch screens
+TC10,Download transfer receipt,UI,Low,Pass,,,3.0,
+TC11,Session timeout during transfer,Security,High,Pass,,,1.4,
+TC12,Invalid beneficiary account number,Validation,Medium,Fail,DEF-104,Major,1.2,Generic error instead of field-level message
+TC13,Transfer history update,Transfer,Medium,Blocked,,,0,Blocked until DEF-102 is fixed
+TC14,Biometric approval for transfer,Authentication,High,Pass,,,2.7,
+TC15,Transfer under peak load of 500 users,Performance,High,Fail,DEF-105,Major,12.4,Response time above the 5-second target

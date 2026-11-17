@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111827">
+  <title>Gemini Chat</title>
+  <link rel="stylesheet" href="/ai-assets/styles.css">
+  <script src="/ai-assets/app.js" defer></script>
+</head>
+<body>
+  <main class="chat-shell">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Gemini Chat home"><span class="brand-mark">AI</span><span>Gemini Chat</span></a>
+      <button class="clear-button" id="clear-chat" type="button">New chat</button>
+    </header>
+
+    <section class="conversation" aria-label="Chat conversation">
+      <div class="welcome" id="welcome">
+        <div class="welcome-mark">✳</div>
+        <h1>How can I help?</h1>
+        <p>Send a message to start a conversation.</p>
+      </div>
+      <div class="messages" id="messages" aria-live="polite"></div>
+      <p class="status" id="status" role="status"></p>
+    </section>
+
+    <form class="composer" id="chat-form">
+      <label class="sr-only" for="message-input">Your message</label>
+      <textarea id="message-input" name="message" rows="1" maxlength="4000" placeholder="Message Gemini" required></textarea>
+      <button class="send-button" id="send-button" type="submit" aria-label="Send message">
+        <span aria-hidden="true">↑</span>
+      </button>
+      <p class="disclaimer">AI can make mistakes. Check important information.</p>
+    </form>
+  </main>
+</body>
+</html>

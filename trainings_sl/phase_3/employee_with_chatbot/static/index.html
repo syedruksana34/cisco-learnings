@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#202c29">
+  <title>People / Employee Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+  <script src="/static/app.js" defer></script>
+  <script src="/static/chat.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="/app" aria-label="People home"><span class="brand-mark"><i data-lucide="asterisk"></i></span><span>people<span class="brand-dot">.</span></span></a>
+      <div class="workspace-label">WORKSPACE</div>
+      <div class="workspace"><span class="workspace-icon">P</span><span><strong>People workspace</strong><small>Employee management</small></span><i data-lucide="chevrons-up-down"></i></div>
+      <div class="nav-label">MANAGE</div>
+      <nav aria-label="Main navigation"><a class="nav-item active" href="/app"><i data-lucide="users-round"></i><span>Employees</span><span class="nav-count" id="nav-count">0</span></a></nav>
+      <div class="sidebar-bottom"><span class="status-dot"></span><span><strong>Workspace active</strong><small>Employee directory</small></span></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar"><div class="breadcrumbs"><span>Workspace</span><i data-lucide="chevron-right"></i><strong>Employees</strong></div><div class="topbar-right"><span class="live-pill"><span class="status-dot"></span> Workspace active</span><a class="icon-button" href="/docs" title="API documentation" aria-label="API documentation"><i data-lucide="book-open"></i></a><span class="top-avatar">P</span></div></header>
+      <div class="content">
+        <div class="page-heading"><div><div class="eyebrow"><span></span> PEOPLE MANAGEMENT</div><h1>Employees<span>.</span></h1><p>Your people, all in one place.</p></div><button class="button primary" id="add-button"><i data-lucide="plus"></i> Add employee</button></div>
+        <section class="overview" aria-label="Employee overview">
+          <div class="overview-heading"><div><span class="section-kicker">AT A GLANCE</span><h2>Workforce overview</h2></div><span class="overview-caption">Your current directory</span></div>
+          <div class="metrics"><div class="metric"><div class="metric-top"><span>Total employees</span><span class="metric-icon green"><i data-lucide="users-round"></i></span></div><strong id="total-count">0</strong><small>People in your workspace</small></div><div class="metric"><div class="metric-top"><span>Designations</span><span class="metric-icon peach"><i data-lucide="briefcase-business"></i></span></div><strong id="designation-count">0</strong><small>Distinct roles represented</small></div><div class="metric"><div class="metric-top"><span>Average salary</span><span class="metric-icon blue"><i data-lucide="wallet"></i></span></div><strong id="average-salary">&mdash;</strong><small>Across all employees</small></div></div>
+        </section>
+        <section class="directory" aria-labelledby="directory-title"><div class="directory-heading"><div><span class="section-kicker">YOUR TEAM</span><h2 id="directory-title">Employee directory <span id="directory-count">0</span></h2><p>Manage and keep track of your people.</p></div><button class="button subtle danger-text" id="delete-all" disabled><i data-lucide="trash-2"></i> Delete all</button></div>
+          <div class="toolbar"><label class="search"><i data-lucide="search"></i><input id="search" type="search" placeholder="Search by name, ID, or designation" aria-label="Search employees"><kbd>/</kbd></label><div class="toolbar-right"><span id="result-count">0 employees</span><button class="icon-button refresh" id="refresh" title="Refresh directory" aria-label="Refresh directory"><i data-lucide="refresh-cw"></i></button></div></div>
+          <div class="table-wrap"><table><thead><tr><th>EMPLOYEE</th><th>EMPLOYEE ID</th><th>DESIGNATION</th><th>AGE</th><th>SALARY</th><th><span class="sr-only">Actions</span></th></tr></thead><tbody id="employee-rows"></tbody></table><div class="empty-state" id="empty-state" hidden><div class="empty-icon"><i data-lucide="users-round"></i></div><h3 id="empty-title">Your directory is empty</h3><p id="empty-description">Add your first employee to get started.</p><button class="button secondary" id="empty-add"><i data-lucide="plus"></i> Add employee</button></div></div>
+          <div class="table-footer"><span id="footer-count">Showing 0 employees</span><span>Employee directory <span class="footer-dot">&bull;</span> People workspace</span></div>
+        </section>
+        <footer class="page-footer"><span>PEOPLE WORKSPACE</span><span>Made for the people behind the work.</span></footer>
+      </div>
+    </main>
+  </div>
+  <dialog id="employee-dialog"><form id="employee-form"><div class="dialog-header"><div><span class="section-kicker">EMPLOYEE DETAILS</span><h2 id="dialog-title">Add employee</h2><p id="dialog-description">Add a person to your directory.</p></div><button type="button" class="icon-button" data-close="employee-dialog" aria-label="Close" title="Close"><i data-lucide="x"></i></button></div><div class="form-grid"><label>Employee ID<input name="id" type="number" min="1" step="1" required placeholder="e.g. 1001"></label><label>Full name<input name="name" minlength="3" maxlength="30" required placeholder="e.g. Alex Morgan"></label><label>Age<input name="age" type="number" min="18" max="60" step="1" required placeholder="e.g. 28"></label><label>Designation<input name="desig" minlength="3" maxlength="30" required placeholder="e.g. Product designer"></label><label class="full-width">Salary<input name="salary" type="number" min="25000" step="any" required placeholder="Minimum 25,000"></label></div><p class="form-error" id="form-error" role="alert"></p><div class="dialog-actions"><button type="button" class="button secondary" data-close="employee-dialog">Cancel</button><button type="submit" class="button primary" id="save-button">Add employee</button></div></form></dialog>
+  <dialog id="salary-dialog"><form id="salary-form"><div class="dialog-header"><div><span class="section-kicker">COMPENSATION</span><h2>Update salary</h2><p id="salary-description"></p></div><button type="button" class="icon-button" data-close="salary-dialog" aria-label="Close" title="Close"><i data-lucide="x"></i></button></div><label>Salary<input name="salary" type="number" min="25000" step="any" required></label><p class="form-error" id="salary-error" role="alert"></p><div class="dialog-actions"><button type="button" class="button secondary" data-close="salary-dialog">Cancel</button><button type="submit" class="button primary">Update salary</button></div></form></dialog>
+  <dialog id="confirm-dialog"><div class="dialog-header"><div><span class="section-kicker">PLEASE CONFIRM</span><h2 id="confirm-title"></h2><p id="confirm-description"></p></div><button type="button" class="icon-button" data-close="confirm-dialog" aria-label="Close" title="Close"><i data-lucide="x"></i></button></div><p class="form-error" id="confirm-error" role="alert"></p><div class="dialog-actions"><button type="button" class="button secondary" data-close="confirm-dialog">Cancel</button><button type="button" class="button destructive" id="confirm-action">Delete</button></div></dialog>
+  <button class="chat-launcher" id="chat-launcher" type="button" aria-controls="chat-panel" aria-expanded="false" aria-label="Open chatbot" title="Open chatbot">
+    <svg class="mini-robot" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
+      <path d="M24 12V8" stroke="#d7f5df" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="24" cy="6" r="3" fill="#b8edbd"/>
+      <rect x="4" y="23" width="5" height="10" rx="2.5" fill="#b8edbd"/>
+      <rect x="39" y="23" width="5" height="10" rx="2.5" fill="#b8edbd"/>
+      <rect x="8" y="13" width="32" height="28" rx="11" fill="#edf9ef"/>
+      <rect x="12" y="19" width="24" height="15" rx="7" fill="#203d32"/>
+      <circle cx="19" cy="26" r="2.5" fill="#b8edbd"/>
+      <circle cx="29" cy="26" r="2.5" fill="#b8edbd"/>
+      <path d="M21 36H27" stroke="#316b52" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
+  <section class="chat-panel" id="chat-panel" aria-label="Employee assistant" hidden>
+    <header class="chat-header"><span class="chat-avatar"><i data-lucide="sparkles"></i></span><div><strong>People assistant</strong><small>Gemini &bull; answers from your live directory</small></div><button type="button" class="icon-button" id="chat-clear" title="New conversation" aria-label="New conversation"><i data-lucide="rotate-ccw"></i></button><button type="button" class="icon-button" id="chat-close" title="Close" aria-label="Close assistant"><i data-lucide="x"></i></button></header>
+    <div class="chat-messages" id="chat-messages" aria-live="polite"></div>
+    <div class="chat-suggestions" id="chat-suggestions"><button type="button">How many employees do we have?</button><button type="button">Average salary by designation</button><button type="button">Who is the highest paid?</button></div>
+    <form class="chat-form" id="chat-form"><textarea id="chat-input" rows="1" maxlength="4000" placeholder="Ask about employees, salaries, roles…" aria-label="Message the assistant" required></textarea><button type="submit" class="button primary" id="chat-send" aria-label="Send"><i data-lucide="send-horizontal"></i></button></form>
+  </section>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
