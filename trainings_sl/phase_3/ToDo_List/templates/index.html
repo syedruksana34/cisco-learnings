@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Worklist | To-do list</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light; --ink: #172a29; --muted: #687a77; --line: #dce5e1; --green: #176f5a; --surface: #fff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: #f3f6f4; font-family: "DM Sans", sans-serif; font-size: 14px; }
+    button, input, select { font: inherit; }
+    header { background: #fff; border-bottom: 1px solid var(--line); }
+    .header-inner { max-width: 1200px; margin: auto; min-height: 68px; padding: 0 32px; display: flex; align-items: center; gap: 12px; }
+    .brand-mark { width: 30px; height: 30px; display: grid; place-items: center; background: var(--green); color: white; border-radius: 6px; font-size: 17px; font-weight: 700; }
+    .brand { font-family: Manrope, sans-serif; font-size: 16px; font-weight: 800; }
+    .header-label { margin-left: auto; color: var(--muted); font-size: 12px; font-weight: 600; }
+    main { max-width: 1200px; margin: auto; padding: 56px 32px 80px; }
+    .eyebrow { color: var(--green); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0; }
+    h1 { font-family: Manrope, sans-serif; font-size: 32px; line-height: 1.2; margin: 10px 0 8px; }
+    .subtitle { color: var(--muted); margin: 0; }
+    .workspace { display: grid; grid-template-columns: minmax(240px, 310px) minmax(0, 1fr); gap: 38px; margin-top: 40px; align-items: start; }
+    h2 { font-family: Manrope, sans-serif; font-size: 16px; margin: 0; }
+    .section-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 26px; margin-bottom: 20px; }
+    .count { color: var(--muted); font-size: 12px; }
+    .form-panel { padding: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; }
+    .form-panel h2 { margin-bottom: 22px; }
+    label { display: block; font-size: 12px; font-weight: 700; margin: 16px 0 7px; }
+    input, select { width: 100%; height: 42px; padding: 0 11px; color: var(--ink); background: white; border: 1px solid #cbd9d3; border-radius: 4px; }
+    input:focus, select:focus, button:focus-visible { outline: 2px solid #78b9a7; outline-offset: 2px; }
+    .add-button { width: 100%; min-height: 42px; margin-top: 23px; border: 0; border-radius: 4px; background: var(--green); color: white; font-weight: 700; cursor: pointer; }
+    .add-button:hover { background: #105745; }
+    .alert { padding: 12px; margin-bottom: 18px; border-left: 3px solid #b65b42; background: #fff1ed; color: #803b2c; }
+    .table-wrap { background: white; border: 1px solid var(--line); border-radius: 6px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { padding: 14px 16px; color: var(--muted); background: #f9fbfa; font-size: 11px; text-transform: uppercase; font-weight: 700; white-space: nowrap; }
+    td { padding: 17px 16px; border-top: 1px solid #edf1ef; vertical-align: middle; }
+    td:first-child { font-weight: 600; min-width: 170px; overflow-wrap: anywhere; }
+    .priority { display: inline-block; font-size: 12px; font-weight: 700; }
+    .priority::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 7px; border-radius: 50%; background: #7d9991; vertical-align: 1px; }
+    .priority.high::before { background: #d36a56; }
+    .priority.medium::before { background: #d59d40; }
+    .priority.low::before { background: #72a794; }
+    .date, .category { white-space: nowrap; color: #536964; }
+    .delete-button { border: 0; padding: 5px 0; color: #a64c40; background: none; font-size: 12px; font-weight: 700; cursor: pointer; }
+    .delete-button:hover { text-decoration: underline; }
+    .empty { padding: 56px 20px; text-align: center; color: var(--muted); }
+    .empty strong { display: block; color: var(--ink); font-size: 14px; margin-bottom: 7px; }
+    @media (max-width: 760px) { main { padding: 36px 20px 60px; } .header-inner { padding: 0 20px; } .workspace { grid-template-columns: 1fr; gap: 34px; margin-top: 30px; } h1 { font-size: 27px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner"><span class="brand-mark" aria-hidden="true">&#10003;</span><span class="brand">Worklist</span><span class="header-label">TASK MANAGEMENT</span></div>
+  </header>
+  <main>
+    <div class="eyebrow">Your workspace</div>
+    <h1>To-do list</h1>
+    <p class="subtitle">Keep your priorities in view and your work moving.</p>
+    <div class="workspace">
+      <section class="form-panel" aria-labelledby="add-heading">
+        <h2 id="add-heading">Add a task</h2>
+        {% with messages = get_flashed_messages() %}
+          {% for message in messages %}<div class="alert" role="alert">{{ message }}</div>{% endfor %}
+        {% endwith %}
+        <form action="{{ url_for('add_task') }}" method="post">
+          <label for="task">Task name</label>
+          <input id="task" name="task" type="text" placeholder="What needs to be done?" required>
+          <label for="priority">Priority</label>
+          <select id="priority" name="priority" required><option value="" selected disabled>Select priority</option><option>High</option><option>Medium</option><option>Low</option></select>
+          <label for="category">Category</label>
+          <select id="category" name="category" required><option value="" selected disabled>Select category</option><option>Work</option><option>Personal</option><option>Health</option></select>
+          <label for="due_date">Due date</label>
+          <input id="due_date" name="due_date" type="date" required>
+          <button class="add-button" type="submit">+ Add task</button>
+        </form>
+      </section>
+      <section aria-labelledby="list-heading">
+        <div class="section-heading"><h2 id="list-heading">Your tasks</h2><span class="count">{{ tasks|length }} {{ 'task' if tasks|length == 1 else 'tasks' }}</span></div>
+        <div class="table-wrap">
+          {% if tasks %}
+          <table>
+            <thead><tr><th scope="col">Task</th><th scope="col">Priority</th><th scope="col">Category</th><th scope="col">Due date</th><th scope="col"><span>Action</span></th></tr></thead>
+            <tbody>{% for task_index, task in tasks %}
+              <tr><td>{{ task.task }}</td><td><span class="priority {{ task.priority|lower }}">{{ task.priority }}</span></td><td class="category">{{ task.category }}</td><td class="date">{{ task.due_date }}</td><td><form action="{{ url_for('delete_task', task_index=task_index) }}" method="post"><button class="delete-button" type="submit" aria-label="Delete {{ task.task }}">Delete</button></form></td></tr>
+            {% endfor %}</tbody>
+          </table>
+          {% else %}
+            <div class="empty"><strong>No tasks yet</strong>Add your first task to get started.</div>
+          {% endif %}
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

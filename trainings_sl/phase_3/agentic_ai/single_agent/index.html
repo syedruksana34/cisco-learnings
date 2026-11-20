@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#182925">
+  <title>College Assistant | Campus Desk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <script defer src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #182b25; --muted: #52635b; --paper: #fff; --canvas: #f5f7f4;
+      --line: #dce5de; --forest: #182925; --forest-light: #28443a;
+      --green: #25604b; --mint: #e9f2ec; --gold: #f2cd84; --danger: #992f29;
+      font: 15px/1.5 'DM Sans', 'Segoe UI', sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--canvas); }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    button:disabled { cursor: default; opacity: .55; }
+    button:focus-visible, input:focus-visible { outline: 2px solid #458c70; outline-offset: 3px; }
+    svg { width: 19px; height: 19px; flex: none; }
+    h1, h2, h3, .brand { font-family: Manrope, 'DM Sans', sans-serif; margin: 0; }
+    p { margin: 0; }
+    .app { display: grid; grid-template-columns: 232px minmax(0, 1fr); min-height: 100dvh; }
+    .sidebar { display: flex; flex-direction: column; padding: 27px 17px 18px; background: var(--forest); color: #edf5f0; }
+    .brand { display: flex; align-items: center; gap: 11px; margin: 0 7px 42px; font-size: 19px; font-weight: 800; }
+    .brand-mark, .avatar, .action-icon, .stat-icon { display: inline-grid; place-items: center; flex: none; }
+    .brand-mark { width: 37px; height: 37px; color: var(--forest); background: var(--gold); border-radius: 7px; }
+    .rail-label, .eyebrow { font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .rail-label { color: #a7bbb0; margin: 0 10px 8px; }
+    .rail-group + .rail-group { margin-top: 30px; }
+    .rail-button, .rail-active { display: flex; align-items: center; gap: 10px; text-align: left; width: 100%; padding: 10px; border: 0; border-radius: 6px; background: transparent; color: #d9e8e0; }
+    .rail-active { background: var(--forest-light); color: #fff; font-weight: 700; }
+    .rail-button:hover:not(:disabled) { background: var(--forest-light); }
+    .rail-button svg, .rail-active svg { color: #bbd5c7; }
+    .rail-footer { margin-top: auto; padding: 18px 10px 0; color: #b7c9c0; display: flex; align-items: center; gap: 8px; font-size: 12px; }
+    .workspace { min-width: 0; }
+    .topbar { height: 66px; padding: 0 32px; border-bottom: 1px solid var(--line); background: var(--paper); display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .breadcrumb { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 13px; }
+    .breadcrumb svg, .status svg, .rail-footer svg { width: 15px; height: 15px; }
+    .breadcrumb strong { color: var(--ink); }
+    .status { display: flex; align-items: center; gap: 7px; color: var(--green); font-size: 12px; font-weight: 700; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: #849a8d; flex: none; }
+    .status[data-state="online"] .dot { background: #368b65; }
+    .status[data-state="offline"] { color: var(--danger); }
+    .status[data-state="offline"] .dot { background: var(--danger); }
+    main { max-width: 1500px; margin: auto; padding: 33px 32px; }
+    .page-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 22px; }
+    .eyebrow { color: var(--green); margin-bottom: 4px; }
+    h1 { font-size: 32px; line-height: 1.18; font-weight: 800; }
+    .layout { display: grid; grid-template-columns: minmax(0, 1fr) 242px; gap: 22px; align-items: start; }
+    .chat-panel { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: clamp(530px, calc(100dvh - 205px), 850px); background: var(--paper); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+    .panel-heading { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--line); }
+    .panel-heading h2, .directory h2 { font-size: 15px; font-weight: 800; }
+    .avatar { width: 34px; height: 34px; border-radius: 7px; background: var(--mint); color: var(--green); }
+    .avatar svg { width: 17px; height: 17px; }
+    .plain-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 36px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 6px; color: var(--ink); background: var(--paper); font-size: 12px; font-weight: 700; }
+    .plain-button:hover:not(:disabled) { background: var(--mint); }
+    .plain-button svg { width: 15px; height: 15px; }
+    .panel-heading .plain-button { margin-left: auto; }
+    .chat-scroll { overflow: auto; overscroll-behavior: contain; }
+    .empty-state { min-height: 100%; display: grid; align-content: center; justify-items: center; text-align: center; padding: 28px 20px; background: radial-gradient(ellipse at 50% 25%, #f0f6f1, transparent 62%); }
+    [hidden] { display: none !important; }
+    .welcome-mark { display: grid; place-items: center; width: 52px; height: 52px; border: 1px solid #ccded2; border-radius: 8px; color: var(--green); background: var(--mint); margin-bottom: 14px; }
+    .welcome-mark svg { width: 27px; height: 27px; }
+    .empty-state h2 { font-size: 23px; margin-bottom: 19px; }
+    .suggestions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+    .suggestions .plain-button { padding-inline: 10px; }
+    .transcript { display: grid; gap: 18px; padding: 20px 18px; }
+    .transcript:empty { display: none; }
+    .message { display: flex; align-items: flex-start; gap: 9px; }
+    .message-body { min-width: 0; }
+    .message-label { display: block; margin-bottom: 3px; font-size: 12px; font-weight: 800; }
+    .message-text { white-space: pre-wrap; overflow-wrap: anywhere; padding: 9px 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--canvas); }
+    .message.user { flex-direction: row-reverse; }
+    .user .message-label { text-align: right; }
+    .user .message-text { background: var(--mint); }
+    .error .message-text { color: var(--danger); background: #fff3f1; border-color: #efcfca; }
+    .waiting { color: var(--muted); padding: 0 18px 16px; font-size: 13px; }
+    .composer { padding: 13px 15px; border-top: 1px solid var(--line); background: var(--paper); }
+    form#chat { display: flex; gap: 9px; }
+    #message { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; color: var(--ink); background: var(--canvas); }
+    #message::placeholder { color: var(--muted); }
+    .send { display: inline-flex; align-items: center; gap: 7px; min-height: 42px; border: 0; border-radius: 6px; color: #fff; background: var(--green); padding: 0 13px; font-weight: 700; }
+    .send:hover:not(:disabled) { background: #1c4c3b; }
+    .send svg { width: 16px; height: 16px; }
+    .directory { border: 1px solid var(--line); border-radius: 8px; background: var(--paper); overflow: hidden; }
+    .directory h2 { padding: 14px 13px; border-bottom: 1px solid var(--line); }
+    .directory-row { display: flex; align-items: center; gap: 9px; text-align: left; padding: 11px 13px; width: 100%; background: transparent; border: 0; color: var(--ink); }
+    .directory-row + .directory-row { border-top: 1px solid var(--line); }
+    .directory-row:hover:not(:disabled) { background: var(--canvas); }
+    .stat-icon { width: 32px; height: 32px; border-radius: 6px; background: var(--mint); color: var(--green); }
+    .directory-row:nth-of-type(2) .stat-icon { background: #f9edd8; color: #785619; }
+    .stat-icon svg { width: 16px; height: 16px; }
+    .stat-text { flex: 1; min-width: 0; font-size: 13px; }
+    .stat-count { font: 800 17px Manrope, sans-serif; font-variant-numeric: tabular-nums; min-width: 1.5ch; text-align: right; }
+    dialog { width: min(440px, calc(100% - 32px)); padding: 22px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: var(--paper); }
+    dialog::backdrop { background: #182925a8; }
+    dialog h2 { font-size: 20px; margin-bottom: 9px; }
+    dialog p { color: var(--muted); overflow-wrap: anywhere; }
+    .dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
+    .delete { background: var(--danger); color: #fff; }
+    .delete:hover:not(:disabled) { background: #7d2420; }
+    @media (max-width: 980px) { .app { grid-template-columns: 188px minmax(0, 1fr); } .layout { grid-template-columns: minmax(0, 1fr) 190px; gap: 15px; } main, .topbar { padding-inline: 20px; } }
+    @media (max-width: 760px) {
+      .app { display: block; } .sidebar { padding: 10px 16px; } .brand { margin: 0; font-size: 16px; } .brand-mark { width: 31px; height: 31px; }
+      .rail-group, .rail-footer { display: none; } .topbar { height: 46px; } main { padding: 18px 14px; } h1 { font-size: 26px; }
+      .page-heading { margin-bottom: 14px; } .layout { grid-template-columns: minmax(0, 1fr); } .directory { grid-row: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .directory h2 { grid-column: 1 / -1; padding-block: 8px; } .directory-row + .directory-row { border-top: 0; border-left: 1px solid var(--line); }
+      .directory-row { padding: 8px; gap: 6px; } .stat-icon { width: 27px; height: 27px; }
+      .chat-panel { height: max(410px, calc(100dvh - 280px)); } .panel-heading { padding: 11px 12px; } .composer { padding: 10px; }
+    }
+    @media (prefers-reduced-motion: no-preference) { .message { animation: arrive 160ms ease-out; } @keyframes arrive { from { opacity: 0; transform: translateY(3px); } } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar" aria-label="Workspace">
+      <div class="brand"><span class="brand-mark"><i data-lucide="graduation-cap"></i></span> Campus Desk</div>
+      <div class="rail-group">
+        <p class="rail-label">Workspace</p>
+        <div class="rail-active" aria-current="page"><i data-lucide="messages-square"></i> Assistant</div>
+      </div>
+      <div class="rail-group">
+        <p class="rail-label">Directory</p>
+        <button class="rail-button" type="button" data-prompt="List all students"><i data-lucide="users-round"></i> Students</button>
+        <button class="rail-button" type="button" data-prompt="List all departments"><i data-lucide="building-2"></i> Departments</button>
+      </div>
+      <div class="rail-footer"><i data-lucide="landmark"></i> College administration</div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <div class="breadcrumb">Workspace <i data-lucide="chevron-right"></i> <strong>Assistant</strong></div>
+        <div class="status" id="directory-status" role="status"><span class="dot"></span><span id="status-text">Checking directory</span></div>
+      </header>
+      <main>
+        <div class="page-heading"><div><p class="eyebrow">College operations</p><h1>College Assistant</h1></div></div>
+        <div class="layout">
+          <section class="chat-panel" aria-labelledby="chat-heading">
+            <header class="panel-heading">
+              <span class="avatar"><i data-lucide="message-circle"></i></span><h2 id="chat-heading">Conversation</h2>
+              <button class="plain-button" type="button" id="new-chat"><i data-lucide="plus"></i> New chat</button>
+            </header>
+            <div class="chat-scroll" id="chat-scroll">
+              <div class="empty-state" id="empty-state">
+                <span class="welcome-mark"><i data-lucide="graduation-cap"></i></span>
+                <h2>How can I help?</h2>
+                <div class="suggestions">
+                  <button class="plain-button" type="button" data-prompt="List all students"><i data-lucide="users-round"></i> List students</button>
+                  <button class="plain-button" type="button" data-prompt="List all departments"><i data-lucide="building-2"></i> List departments</button>
+                </div>
+              </div>
+              <div class="transcript" id="messages" role="log" aria-label="Conversation messages"></div>
+              <div class="waiting" id="waiting" role="status" hidden>Waiting for a reply&hellip;</div>
+            </div>
+            <div class="composer">
+              <form id="chat">
+                <input id="message" aria-label="Message" placeholder="Ask about college records" autocomplete="off" required>
+                <button class="send" id="send" type="submit"><i data-lucide="send"></i> Send</button>
+              </form>
+            </div>
+          </section>
+          <aside class="directory" aria-labelledby="directory-heading">
+            <h2 id="directory-heading">College directory</h2>
+            <button class="directory-row" type="button" data-prompt="List all students">
+              <span class="stat-icon"><i data-lucide="users-round"></i></span><span class="stat-text">Students</span><strong class="stat-count" id="students-count">&ndash;</strong>
+            </button>
+            <button class="directory-row" type="button" data-prompt="List all departments">
+              <span class="stat-icon"><i data-lucide="building-2"></i></span><span class="stat-text">Departments</span><strong class="stat-count" id="departments-count">&ndash;</strong>
+            </button>
+          </aside>
+        </div>
+      </main>
+    </div>
+  </div>
+  <dialog id="confirm-delete" aria-labelledby="confirm-heading" aria-describedby="confirm-text">
+    <h2 id="confirm-heading">Delete record?</h2>
+    <p id="confirm-text"></p>
+    <form class="dialog-actions" method="dialog">
+      <button class="plain-button" value="cancel" autofocus>Cancel</button>
+      <button class="plain-button delete" value="delete"><i data-lucide="trash-2"></i> Delete</button>
+    </form>
+  </dialog>
+  <script>
+    const form = document.querySelector("#chat");
+    const input = document.querySelector("#message");
+    const messages = document.querySelector("#messages");
+    const emptyState = document.querySelector("#empty-state");
+    const scroll = document.querySelector("#chat-scroll");
+    const waiting = document.querySelector("#waiting");
+    const dialog = document.querySelector("#confirm-delete");
+    const newChat = document.querySelector("#new-chat");
+    const directoryStatus = document.querySelector("#directory-status");
+    const shortcuts = [...document.querySelectorAll("[data-prompt]")];
+    const busyControls = [...shortcuts, document.querySelector("#send"), newChat];
+    let sessionId = crypto.randomUUID();
+    let busy = false;
+
+    function scrollToLatest() { scroll.scrollTop = scroll.scrollHeight; }
+
+    function addMessage(role, text) {
+      const row = document.createElement("article");
+      row.className = `message ${role}`;
+      const avatar = document.createElement("span");
+      avatar.className = "avatar";
+      avatar.setAttribute("aria-hidden", "true");
+      const icon = document.createElement("i");
+      icon.dataset.lucide = { user: "user-round", assistant: "graduation-cap", error: "triangle-alert" }[role];
+      avatar.append(icon);
+      const content = document.createElement("div");
+      content.className = "message-body";
+      const label = document.createElement("span");
+      label.className = "message-label";
+      label.textContent = { user: "You", assistant: "College Assistant", error: "Request failed" }[role];
+      const body = document.createElement("p");
+      body.className = "message-text";
+      body.textContent = text;
+      content.append(label, body);
+      row.append(avatar, content);
+      messages.append(row);
+      window.lucide?.createIcons();
+      scrollToLatest();
+    }
+
+    async function refreshDirectory() {
+      const results = await Promise.allSettled(["students", "departments"].map(async (resource) => {
+        const response = await fetch(`/api/${resource}/`);
+        if (!response.ok) throw new Error("Directory unavailable");
+        const records = await response.json();
+        document.querySelector(`#${resource}-count`).textContent = records.length;
+      }));
+      const online = results.every((result) => result.status === "fulfilled");
+      directoryStatus.dataset.state = online ? "online" : "offline";
+      document.querySelector("#status-text").textContent = online ? "Directory online" : "Directory unavailable";
+    }
+
+    async function chat(payload) {
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: sessionId, ...payload })
+      });
+      const data = await response.json().catch(() => null);
+      if (!response.ok) throw new Error(typeof data?.detail === "string" ? data.detail : `Chat request failed (HTTP ${response.status}).`);
+      if (!data) throw new Error("The chat server returned an invalid response.");
+      return data;
+    }
+
+    function confirmDelete(prompt) {
+      document.querySelector("#confirm-text").textContent = prompt;
+      dialog.returnValue = "cancel";
+      return new Promise((resolve) => {
+        dialog.addEventListener("close", () => resolve(dialog.returnValue === "delete"), { once: true });
+        dialog.showModal();
+      });
+    }
+
+    async function sendMessage(message) {
+      if (!message || busy) return;
+      busy = true;
+      busyControls.forEach((control) => { control.disabled = true; });
+      emptyState.hidden = true;
+      waiting.hidden = false;
+      addMessage("user", message);
+      try {
+        let result = await chat({ message });
+        if (result.confirmation) {
+          const { id, prompt } = result.confirmation;
+          waiting.hidden = true;
+          const approved = await confirmDelete(prompt);
+          waiting.hidden = false;
+          result = await chat({ confirmation_id: id, approved });
+        }
+        if (typeof result.reply !== "string") throw new Error("The chat server returned an invalid reply.");
+        addMessage("assistant", result.reply);
+        void refreshDirectory();
+      } catch (error) {
+        addMessage("error", error.message);
+      } finally {
+        waiting.hidden = true;
+        busy = false;
+        busyControls.forEach((control) => { control.disabled = false; });
+        input.focus({ preventScroll: true });
+        scrollToLatest();
+      }
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (busy || !input.value.trim()) return;
+      const message = input.value.trim();
+      input.value = "";
+      void sendMessage(message);
+    });
+    shortcuts.forEach((button) => button.addEventListener("click", () => void sendMessage(button.dataset.prompt)));
+    newChat.addEventListener("click", () => {
+      sessionId = crypto.randomUUID();
+      messages.replaceChildren();
+      emptyState.hidden = false;
+      input.value = "";
+      input.focus();
+    });
+    document.addEventListener("DOMContentLoaded", () => window.lucide?.createIcons());
+    void refreshDirectory();
+  </script>
+</body>
+</html>

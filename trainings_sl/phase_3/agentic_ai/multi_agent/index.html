@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Employee Operations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+  <script defer src="https://cdn.jsdelivr.net/npm/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root { color-scheme: light; --ink:#242f2d; --quiet:#53615d; --line:#dce4df; --canvas:#f3f6f3; --white:#fff; --accent:#175842; --red:#9b2c26; font:15px/1.5 'DM Sans','Segoe UI',sans-serif; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:linear-gradient(180deg,#eaf1ec,var(--canvas) 300px); }
+    h1,h2,p { margin:0; }
+    h1,h2,.brand { font-family:Manrope,'DM Sans',sans-serif; }
+    h1 { font-size:29px; line-height:1.2; }
+    h2 { font-size:17px; }
+    header.top { background:#202f2b; color:#fff; }
+    .wrap { max-width:1420px; margin:auto; padding-inline:28px; }
+    .brand { display:flex; align-items:center; gap:9px; min-height:59px; font-size:16px; font-weight:800; }
+    .brand svg { color:#f1ce86; }
+    main { padding-block:28px; }
+    .heading,.toolbar,.actions { display:flex; align-items:center; gap:9px; flex-wrap:wrap; }
+    .heading { justify-content:space-between; margin-bottom:18px; }
+    .grid { display:grid; grid-template-columns:minmax(0,1fr) minmax(270px,325px); gap:22px; align-items:start; }
+    .directory,.agent { min-width:0; border-top:1px solid var(--line); background:var(--white); }
+    .toolbar { justify-content:space-between; padding:12px; border-bottom:1px solid var(--line); }
+    .toolbar input { width:min(240px,100%); }
+    button,input,textarea { font:inherit; }
+    input,textarea { min-width:0; width:100%; padding:8px 10px; border:1px solid #bdcbc3; border-radius:5px; background:#fff; color:var(--ink); }
+    textarea { resize:vertical; }
+    button { display:inline-flex; align-items:center; justify-content:center; gap:6px; border:1px solid var(--line); border-radius:5px; background:var(--white); color:var(--ink); min-height:36px; padding:5px 10px; cursor:pointer; font-weight:700; }
+    button:hover:not(:disabled) { background:#e9f1eb; }
+    button:disabled { opacity:.55; cursor:default; }
+    :focus-visible { outline:2px solid #358066; outline-offset:2px; }
+    .primary { color:white; background:var(--accent); border-color:var(--accent); }
+    .primary:hover:not(:disabled) { background:#104632; }
+    .danger { color:var(--red); }
+    .danger-solid { color:white; background:var(--red); }
+    .danger-solid:hover:not(:disabled) { background:#79211d; }
+    svg { width:17px; height:17px; flex:none; }
+    .table-scroll { overflow:auto; }
+    table { border-collapse:collapse; width:100%; text-align:left; font-variant-numeric:tabular-nums; min-width:550px; }
+    th,td { padding:9px 12px; border-bottom:1px solid var(--line); overflow-wrap:anywhere; }
+    th { background:#e9f0eb; color:#42534a; font-size:12px; text-transform:uppercase; }
+    td .actions { flex-wrap:nowrap; }
+    .icon-button { min-width:34px; min-height:32px; padding:4px 6px; font-size:12px; }
+    .empty { color:var(--quiet); text-align:center; padding:21px; }
+    .agent { padding:13px; }
+    #agent-form { margin-top:10px; }
+    #agent-form button { margin-top:7px; }
+    .output { white-space:pre-wrap; overflow-wrap:anywhere; margin-top:11px; font-size:14px; max-height:240px; overflow:auto; }
+    .status { margin-top:10px; min-height:1.5em; color:var(--quiet); overflow-wrap:anywhere; }
+    .error { color:var(--red); }
+    dialog { width:min(440px,calc(100% - 28px)); border:1px solid var(--line); border-radius:8px; padding:20px; color:var(--ink); }
+    dialog::backdrop { background:#182722a8; }
+    dialog .fields { display:grid; gap:9px; margin:12px 0; }
+    dialog label { display:grid; gap:4px; font-weight:600; }
+    dialog p { margin:10px 0; overflow-wrap:anywhere; }
+    dialog .actions { justify-content:flex-end; margin-top:13px; }
+    @media (max-width:880px) { .grid { grid-template-columns:minmax(0,1fr); gap:17px; } .wrap { padding-inline:15px; } }
+  </style>
+</head>
+<body>
+  <header class="top"><div class="wrap brand"><i data-lucide="briefcase-business"></i> People Operations</div></header>
+  <main class="wrap">
+    <div class="heading"><h1>Employee management</h1><button id="add" class="primary" type="button"><i data-lucide="plus"></i> Add employee</button></div>
+    <div class="grid">
+      <section class="directory" aria-labelledby="directory-title">
+        <div class="toolbar"><h2 id="directory-title">Employee directory</h2><input id="search" type="search" aria-label="Search employee directory" placeholder="Name or designation"></div>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Employee records">
+          <table><thead><tr><th scope="col">ID</th><th scope="col">Name</th><th scope="col">Designation</th><th scope="col">Age</th><th scope="col">Salary</th><th scope="col">Actions</th></tr></thead><tbody id="rows"></tbody></table>
+          <p class="empty" id="empty">Loading employees&hellip;</p>
+        </div>
+      </section>
+      <section class="agent" aria-labelledby="agent-title">
+        <h2 id="agent-title">Employee Assistant</h2>
+        <form id="agent-form">
+          <textarea name="message" aria-label="Message Employee Assistant" placeholder="Hi, how can I help you?" rows="3" required maxlength="1500"></textarea>
+          <button class="primary" type="submit"><i data-lucide="send"></i> Send</button>
+        </form>
+        <div id="agent-output" class="output" role="status"></div>
+      </section>
+    </div>
+    <p id="status" class="status" role="status"></p>
+  </main>
+  <dialog id="employee-dialog" aria-labelledby="employee-dialog-title">
+    <form id="employee-form">
+      <h2 id="employee-dialog-title">Add employee</h2>
+      <div class="fields">
+        <label>Name <input name="name" maxlength="80" required autofocus></label>
+        <label>Designation <input name="designation" maxlength="80" required></label>
+        <label>Age <input name="age" type="number" min="18" max="100" required></label>
+        <label>Salary <input name="salary" type="number" min="0" step="0.01" required></label>
+      </div>
+      <p class="error" id="form-error" role="alert"></p>
+      <div class="actions"><button type="button" id="cancel-edit">Cancel</button><button type="submit" class="primary">Save employee</button></div>
+    </form>
+  </dialog>
+  <dialog id="delete-dialog" aria-labelledby="delete-title">
+    <form method="dialog"><h2 id="delete-title">Delete employee?</h2><p id="delete-summary"></p>
+      <div class="actions"><button value="cancel" autofocus>Cancel</button><button value="delete" class="danger-solid">Delete employee</button></div>
+    </form>
+  </dialog>
+  <script>
+    const select = (selector) => document.querySelector(selector);
+    const collection = '/api/employees';
+    const employeeForm = select('#employee-form');
+    const employeeDialog = select('#employee-dialog');
+    const deleteDialog = select('#delete-dialog');
+    const agentForm = select('#agent-form');
+    const agentOutput = select('#agent-output');
+    const agentSessionId = crypto.randomUUID();
+    const rows = select('#rows');
+    const search = select('#search');
+    const amount = new Intl.NumberFormat(undefined, {maximumFractionDigits:2});
+    let employees = [];
+    let editingId = null;
+    let editingFromAssistant = false;
+
+    async function request(url, method='GET', payload) {
+      const options = {method};
+      if (payload !== undefined) {
+        options.headers = {'Content-Type':'application/json'};
+        options.body = JSON.stringify(payload);
+      }
+      const response = await fetch(url, options);
+      const data = await response.json().catch(() => null);
+      if (!response.ok) throw new Error(typeof data?.detail === 'string' ? data.detail : `Request failed (HTTP ${response.status}).`);
+      return data;
+    }
+
+    function showStatus(text, error=false) {
+      const status = select('#status');
+      status.textContent = text;
+      status.classList.toggle('error', error);
+    }
+
+    function action(text, iconName, handler) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = `icon-button${text === 'Delete' ? ' danger' : ''}`;
+      const icon = document.createElement('i');
+      icon.dataset.lucide = iconName;
+      button.append(icon, text);
+      button.addEventListener('click', handler);
+      return button;
+    }
+
+    function render() {
+      const query = search.value.trim().toLowerCase();
+      const matching = employees.filter(({name, designation}) => !query || [name, designation].some(value => value.toLowerCase().includes(query)));
+      rows.replaceChildren();
+      for (const employee of matching) {
+        const row = rows.insertRow();
+        for (const value of [employee.id, employee.name, employee.designation, employee.age, amount.format(employee.salary)]) {
+          row.insertCell().textContent = value;
+        }
+        const controls = document.createElement('div');
+        controls.className = 'actions';
+        controls.append(action('Edit', 'pencil', () => openEditor(employee)), action('Delete', 'trash-2', () => deleteEmployee(employee.id)));
+        row.insertCell().append(controls);
+      }
+      const empty = select('#empty');
+      empty.hidden = matching.length > 0;
+      empty.textContent = query ? 'No matching employees.' : 'No employee records.';
+      window.lucide?.createIcons();
+    }
+
+    async function refresh() {
+      employees = await request(collection);
+      render();
+    }
+
+    function openEditor(employee, fromAssistant = false) {
+      if (employeeDialog.open || deleteDialog.open) return;
+      editingId = employee?.id ?? null;
+      editingFromAssistant = fromAssistant;
+      employeeForm.reset();
+      select('#form-error').textContent = '';
+      select('#employee-dialog-title').textContent = editingId === null ? 'Add employee' : `Edit ${employee.name}`;
+      if (employee) {
+        for (const field of ['name','designation','age','salary']) employeeForm.elements[field].value = employee[field];
+      }
+      employeeDialog.showModal();
+    }
+
+    async function confirmDeletion(proposal) {
+      if (deleteDialog.open || employeeDialog.open) return false;
+      select('#delete-summary').textContent = `${proposal.employee.name} | Employee ID: ${proposal.employee.id}`;
+      deleteDialog.returnValue = 'cancel';
+      const approved = await new Promise(resolve => {
+        deleteDialog.addEventListener('close', () => resolve(deleteDialog.returnValue === 'delete'), {once:true});
+        deleteDialog.showModal();
+      });
+      if (!approved) return false;
+      await request(`/api/deletions/${proposal.confirmation_id}`, 'DELETE');
+      return true;
+    }
+
+    async function deleteEmployee(id) {
+      try {
+        const proposal = await request(`${collection}/${id}/deletion`, 'POST');
+        if (!await confirmDeletion(proposal)) return;
+        showStatus(`Deleted ${proposal.employee.name}.`);
+        await refresh();
+      } catch (error) { showStatus(error.message, true); }
+    }
+
+    employeeForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      const submit = employeeForm.querySelector('[type=submit]');
+      submit.disabled = true;
+      const values = Object.fromEntries(new FormData(employeeForm));
+      values.age = Number(values.age);
+      values.salary = Number(values.salary);
+      const fromAssistant = editingFromAssistant;
+      try {
+        const employee = await request(editingId === null ? collection : `${collection}/${editingId}`, editingId === null ? 'POST' : 'PUT', values);
+        employeeDialog.close();
+        if (fromAssistant) {
+          agentOutput.classList.remove('error');
+          agentOutput.textContent = `Saved the employee record for ${employee.name}.\nEmployee ID: ${employee.id}`;
+        } else {
+          showStatus(`Saved ${employee.name}.`);
+        }
+        await refresh();
+      } catch (error) {
+        if (employeeDialog.open) select('#form-error').textContent = error.message;
+        else showStatus(error.message, true);
+      } finally { submit.disabled = false; }
+    });
+
+    agentForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      const button = agentForm.querySelector('[type=submit]');
+      if (button.disabled) return;
+      button.disabled = true;
+      showStatus('');
+      agentOutput.classList.remove('error');
+      agentOutput.textContent = 'Waiting for a reply...';
+      const {message} = Object.fromEntries(new FormData(agentForm));
+      try {
+        const result = await request('/api/supervisor', 'POST', {message, session_id: agentSessionId});
+        const {data, operation} = result;
+        let reply = result.reply;
+        if (result.employee_draft) openEditor(result.employee_draft, true);
+        if (data?.confirmation_id) reply = await confirmDeletion(data) ? `Deleted ${data.employee.name}.` : 'Deletion cancelled.';
+        else if (Array.isArray(data)) reply = data.length ? data.map(item => `${item.name}\nEmployee ID: ${item.id}\nDesignation: ${item.designation}`).join('\n\n') : 'No matching employees.';
+        else if (data?.id) reply = operation === 'write' ? `Saved the employee record for ${data.name}.\nEmployee ID: ${data.id}` : `${data.name}\nEmployee ID: ${data.id}\nDesignation: ${data.designation}\nAge: ${data.age}\nSalary: ${amount.format(data.salary)}`;
+        agentOutput.textContent = reply ?? 'No records returned.';
+        if (operation === 'write' || operation === 'delete') await refresh();
+      } catch (error) {
+        agentOutput.classList.add('error');
+        agentOutput.textContent = error.message;
+      } finally { button.disabled = false; }
+    });
+
+    select('#add').addEventListener('click', () => openEditor());
+    select('#cancel-edit').addEventListener('click', () => employeeDialog.close());
+    search.addEventListener('input', render);
+    document.addEventListener('DOMContentLoaded', () => window.lucide?.createIcons());
+    refresh().catch(error => { select('#empty').textContent = 'Directory unavailable.'; showStatus(error.message, true); });
+  </script>
+</body>
+</html>
