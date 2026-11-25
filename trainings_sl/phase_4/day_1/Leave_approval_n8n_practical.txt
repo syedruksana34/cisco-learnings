@@ -1,0 +1,462 @@
+n8n cloud
+username:ruksanas1412@gmail.com
+password:Sharuk@141203
+
+# Employee Leave Approval Automation Using n8n
+
+## 1. Overview
+
+This project automates the employee leave approval process using n8n workflow automation.
+
+Employees submit their leave requests through an online form. The manager receives an email containing the employee's leave details with two options: Approve and Decline.
+
+Based on the manager's decision, the workflow automatically sends an approval or rejection email to the employee.
+
+
+### Main Features
+
+- Online employee leave request form.
+- Automatic email to the manager.
+- Manager approval and rejection through Gmail.
+- Conditional decision-making using the IF node.
+- Automatic email notifications to employees.
+- Separate workflows for approved and declined requests.
+
+---
+
+## 2. Technologies Used
+
+| Technology | Purpose |
+|---|---|
+| n8n | Workflow automation |
+| Gmail | Manager approval and email notifications |
+| n8n Form Trigger | Employee leave request form |
+| IF Node | Check manager's decision |
+| Gmail Send and Wait for Response | Collect manager approval |
+
+---
+
+## 3. Workflow Architecture
+
+The workflow contains the following nodes:
+
+1. On form submission (n8n Form Trigger)
+2. Gmail – Send and Wait for Response
+3. IF – Check approval status
+4. Gmail – Send Approval Email (TRUE branch)
+5. Gmail – Send Rejection Email (FALSE branch)
+
+### Workflow Diagram
+
+```text
+Employee
+   |
+   v
+n8n Form Trigger
+   |
+   v
+Gmail: Send and Wait for Response
+   |
+   v
+Manager Approval / Decline
+   |
+   v
+IF Node
+   |
+   +-------------------+
+   |                   |
+  TRUE                FALSE
+   |                   |
+   v                   v
+Gmail: Approval    Gmail: Rejection
+Email              Email
+   |                   |
+   v                   v
+Employee            Employee
+```
+
+---
+
+# 4. Step-by-Step Implementation
+
+## Step 1: Create an n8n Account
+
+1. Open https://n8n.io/
+2. Sign up or log in to your n8n account.
+3. Open the n8n dashboard.
+4. Click Create Workflow.
+5. Enter the workflow name:
+
+**Employee Leave Approval Automation**
+
+## Step 2: Add Form Trigger
+
+1. Click the Add First Step (+) button.
+2. Search for `n8n Form Trigger`.
+3. Select the Form Trigger node. and then new form note
+
+### Configure Form Trigger
+
+**Form Title:**
+Employee Leave Request
+
+**Form Description:**
+
+Please complete this form to submit your employee leave request. Enter your details, select your leave dates and leave type, and provide a reason for your absence. Your request will be sent to your manager for approval. You will receive an email notification once a decision is made.
+
+### Add Form Elements
+
+Add the following fields:
+
+| Field Label | Field Type | Required |
+|---|---|---|
+| Employee Name | Text Input | Yes |
+| Employee Email | Email | Yes |
+| Manager Email | Email | Yes |
+| Leave Start Date | Date | Yes |
+| Leave End Date | Date | Yes |
+| Leave Type | Dropdown | Yes |
+| Reason | Textarea | Yes |
+
+### Leave Type Dropdown Options
+
+- Casual Leave
+- Sick Leave
+- Earned Leave
+
+### Test the Form
+
+1. Click Execute Workflow.
+2. Open the generated Form Test URL.
+3. Enter employee details.
+4. Submit the form.
+5. Check the Form Trigger output.
+
+The submitted data should be visible in the output.
+
+---
+
+## Step 3: Configure Gmail – Send and Wait for Response
+
+This node sends the employee leave request to the manager and waits for the manager's decision.
+
+### Add Gmail Node
+
+1. Click the plus (+) button after Form Trigger.
+2. Search for Gmail.
+3. Select Gmail.
+4. Configure the following settings.
+
+### Gmail Parameters
+
+| Parameter | Value |
+|---|---|
+| Resource | Message |
+| Operation | Send and Wait for Response |
+| To | Manager Email from Form Trigger |
+| Subject | Employee Leave Approval Request |
+| Message | Employee leave details |
+
+### Connect Gmail Credentials
+
+1. Select Gmail account under Credentials.
+2. Connect your Gmail account.
+3. Complete the required authorization.
+4. Save the credential.
+
+### Configure Email Message
+
+Use the following message:
+
+Hello Manager,
+
+A new employee leave request requires your approval.
+
+Employee Details: fill details you entered in the form
+
+- Employee Name
+- Employee Email
+- Leave Start Date
+- Leave End Date
+- Leave Type
+- Reason
+
+Please review this request and select Approve or Decline.
+
+Thank you,  
+HR Team
+
+Use expressions from the Form Trigger output for the employee details instead of hardcoding values.
+
+### Configure Response Type
+
+Select: (buttons)
+
+**Response Type:** Approval
+
+**Type of Approval:** Approve and Disapprove
+
+**Approve Button Label:** Approve
+
+**Approve Button Style:** Primary
+
+**Disapprove Button Label:** Decline
+
+**Disapprove Button Style:** Secondary
+
+### Test Manager Approval
+
+1. Execute the workflow.
+2. Check the manager's Gmail inbox.
+3. Open the Employee Leave Approval Request email.
+4. Click Approve or Decline.
+5. Check the Gmail node output.
+
+### Expected Approval Output
+
+When the manager approves:
+
+```json
+[
+  {
+    "data": {
+      "approved": true,
+      "respondedAt": "2026-11-24T04:21:21.771Z"
+    }
+  }
+]
+```
+
+When the manager declines, the approved value will be false.
+
+---
+
+## Step 4: Add IF Node
+
+The IF node checks whether the manager approved or declined the leave request.
+
+### Add IF Node
+
+1. Click the plus (+) button after the Gmail approval node.
+2. Search for IF.
+3. Select the IF node.
+
+### Configure IF Condition
+
+**Value 1:** click on Expression
+
+```javascript
+{{ $json.data.approved }}
+```
+
+**Operator:**
+
+is equal to
+
+**Value 2:**
+
+```text
+true
+```
+
+Use Boolean true, not the text string "true".
+
+**Convert Types Where Required:** OFF
+
+### IF Node Logic
+
+- TRUE: Manager approved the leave.
+- FALSE: Manager declined the leave.
+
+---
+
+## Step 5: Configure Approval Email (TRUE Branch)
+
+This branch executes when the manager approves the request.
+
+### Add Gmail Node
+
+1. Click the plus (+) button on the TRUE output.
+2. Search for Gmail.
+3. Select Gmail.
+4. Choose Resource: Message.
+5. Choose Operation: Send a Message.
+
+### Configure Gmail Parameters
+
+**To:**
+
+Enable Expression mode and enter:
+
+```javascript
+{{ $('On form submission').first().json['Employee Email'] }}
+```
+
+Note: If your Form Trigger node has a different name, replace `On form submission` with its exact node name.
+
+**Subject:**
+
+Your Leave Request Has Been Approved
+
+**Message:**
+
+Hello,
+
+Good news! Your leave request has been approved by your manager.
+
+Leave Details:
+
+- Employee Name: Use the employee name expression.
+- Leave Start Date: Use the start date expression.
+- Leave End Date: Use the end date expression.
+- Leave Type: Use the leave type expression.
+
+Enjoy your time to rest and recover.
+
+Regards,  
+HR Team
+
+Use expressions to retrieve the actual employee details from the Form Trigger.
+
+### Test Approval Email
+
+1. Execute the workflow with a fresh form submission.
+2. Click Approve in the manager's email.
+3. Verify that the IF node executes the TRUE branch.
+4. Check the employee's Gmail inbox.
+5. Confirm that the approval notification is received.
+
+---
+
+## Step 6: Configure Rejection Email (FALSE Branch)
+
+This branch executes when the manager declines the leave request.
+
+### Add Gmail Node
+
+1. Click the plus (+) button on the FALSE output.
+2. Search for Gmail.
+3. Select Gmail.
+4. Choose Resource: Message.
+5. Choose Operation: Send a Message.
+
+### Configure Gmail Parameters
+
+**To:**
+
+Enable Expression mode and enter:
+
+```javascript
+{{ $('On form submission').first().json['Employee Email'] }}
+```
+
+**Subject:**
+
+Your Leave Request Has Been Declined
+
+**Message:**
+
+Hello,
+
+Your leave request has been declined by your manager.
+
+Please contact your manager or HR for further clarification.
+
+Regards,  
+HR Team
+
+### Test Rejection Email
+
+1. Execute the workflow with a fresh form submission.
+2. Open the manager's Gmail inbox.
+3. Click Decline.
+4. Verify that the IF node executes the FALSE branch.
+5. Check the employee's Gmail inbox.
+6. Confirm that the rejection notification is received.
+
+---
+CHECK RESULTS AND Workflow
+
+# 5. Testing and Validation
+
+The workflow was tested using two scenarios.
+
+### Test Case 1: Leave Approved
+
+| Test | Expected Result |
+|---|---|
+| Employee submits form | Form data received |
+| Manager receives email | Approval request received |
+| Manager clicks Approve | approved = true |
+| IF node | TRUE branch executed |
+| Employee notification | Approval email received |
+
+**Result: SUCCESS**
+
+### Test Case 2: Leave Declined
+
+| Test | Expected Result |
+|---|---|
+| Employee submits form | Form data received |
+| Manager receives email | Approval request received |
+| Manager clicks Decline | approved = false |
+| IF node | FALSE branch executed |
+| Employee notification | Rejection email received |
+
+**Result: SUCCESS**
+
+Both approval and rejection scenarios were successfully tested.
+
+---
+
+# 6. Important Notes
+
+- Each test should use a fresh workflow execution.
+- Use the Form Test URL during development.
+- Activate the workflow and use the production form URL for normal operation.
+- Ensure Gmail credentials are properly connected.
+- Use expressions to retrieve employee information dynamically.
+- Never upload passwords, OAuth tokens, or private credentials to GitHub.
+- Protect employee information and restrict access to the workflow.
+
+---
+
+# 7. Future Enhancements
+
+The project can be extended with the following features:
+
+1. Google Sheets integration to store leave requests.
+2. Employee leave balance tracking.
+3. Automatic leave balance calculation.
+4. Manager approval reminders.
+5. HR dashboard for leave management.
+6. Monthly employee leave reports.
+7. Multiple levels of approval.
+
+---
+
+# 8. Project Outcome
+
+Successfully developed and tested an Employee Leave Approval Automation workflow using n8n.
+
+The project demonstrates:
+
+- No-code workflow automation.
+- Form-based data collection.
+- Gmail integration.
+- Human approval workflows.
+- Conditional logic using IF nodes.
+- Automated email notifications.
+- Workflow testing and validation.
+
+**Project Name:** Employee Leave Approval Automation
+
+**Platform:** n8n Cloud
+
+**Category:** Business Process Automation
+
+**Status:** Completed
+
+---
+
+Developed as a practical workflow automation project using n8n.

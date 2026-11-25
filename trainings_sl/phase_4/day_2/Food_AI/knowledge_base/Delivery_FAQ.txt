@@ -1,0 +1,2 @@
+Fictional delivery FAQ, version 1.0, effective 2026-01-01.
+This demonstration does not connect to a real delivery provider. Order status is simulated.

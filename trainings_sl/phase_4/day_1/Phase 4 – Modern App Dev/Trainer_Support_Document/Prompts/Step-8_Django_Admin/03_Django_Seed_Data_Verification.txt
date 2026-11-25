@@ -1,0 +1,12 @@
+NETPULSE CAPSTONE | HANDS-ON 8 | PROMPT 3: SEED DATA AND FINAL VERIFICATION
+Continue the Django project from Prompts 1 and 2. Preserve the model, SQLite database, superuser, templates and admin.
+
+1. Inspect actual Device fields and choice values; do not assume the schema differs from existing code.
+2. Create devices/management/commands/seed_devices.py and required __init__.py files.
+3. Implement python manage.py seed_devices with exactly 15 predefined devices: 5 Router, 5 Switch, 5 Server; locations Chennai, Bengaluru, Hyderabad, Coimbatore, Mumbai; 11 Online and 4 Offline. Use unique device IDs, valid private IP addresses and meaningful network names.
+4. Use get_or_create(device_id=..., defaults=...) to avoid duplicates. Do not overwrite, reset or delete existing learner records. Print created/existing/current total counts. On a fresh DB the dashboard should show 15 total, 11 online, 4 offline, 5 locations; with existing records, show actual totals.
+5. Demonstrate Django ORM in shell: all(), count(), filter(status=...), filter(device_type=...), filter(location=...), filter(device_name__icontains=...). Explain basic ORM-to-SQL mapping.
+6. Verify admin search/filter and dashboard inventory/search/status/type filters; verify Add Device link.
+7. Add isolated Django tests for seed idempotency, preservation of existing records, counts and filters. Run python manage.py check and python manage.py test. Do not modify real learner data in tests.
+8. Update README with seed command, expected counts, ORM, MTV and screenshot checklist.
+9. Report files, inserted/existing counts, tests, URLs and limitations. No FastAPI, React, DRF, Docker, microservices or new features. STOP.

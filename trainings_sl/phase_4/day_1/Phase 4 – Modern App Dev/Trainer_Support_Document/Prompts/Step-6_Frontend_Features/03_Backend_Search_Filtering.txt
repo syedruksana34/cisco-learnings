@@ -1,0 +1,33 @@
+PROJECT: NetPulse
+STEP 6 — LEVEL 2: BACKEND SEARCH AND FILTERING
+
+Continue the existing NetPulse application.
+Do not recreate the project.
+
+OBJECTIVE:
+Verify that existing FastAPI backend supports React device search and filtering.
+
+REQUIREMENTS:
+1. Inspect existing GET /devices endpoint.
+2. Verify search, status and device_type query parameters.
+3. Confirm search behavior against existing device records.
+4. Verify online/offline status filtering.
+5. Verify router/switch/server device-type filtering.
+6. Confirm combined search and filters in one request.
+7. Preserve JSON list response compatibility with React.
+8. Preserve existing backend limit/offset behavior; do not add pagination UI.
+9. Preserve deterministic ordering and empty-list responses.
+10. Preserve SQLite, logging and X-Request-ID.
+11. Add or update tests only if needed.
+12. Run complete backend test suite.
+
+DO NOT:
+- Create endpoints, modify React or change database schema.
+- Replace API response formats or add cloud/authentication.
+
+REPORT:
+- Supported query parameters and example requests
+- Modified files, if any
+- Test results and readiness for React
+
+IMPORTANT: Preserve Hands-on 1–5 and Hands-on 6 Level 1.

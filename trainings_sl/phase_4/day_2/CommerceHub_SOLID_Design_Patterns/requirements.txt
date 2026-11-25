@@ -1,0 +1,8 @@
+# FastAPI framework for building the web API
+fastapi
+
+# ASGI server used to run the application
+uvicorn
+
+# Test runner for service-level tests
+pytest

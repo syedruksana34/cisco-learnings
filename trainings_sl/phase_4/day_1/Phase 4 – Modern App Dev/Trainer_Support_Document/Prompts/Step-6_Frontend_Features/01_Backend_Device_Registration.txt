@@ -1,0 +1,36 @@
+PROJECT: NetPulse
+STEP 6 — LEVEL 1: BACKEND DEVICE REGISTRATION
+
+Continue the existing NetPulse application from Step 5.
+Do not recreate the project.
+
+OBJECTIVE:
+Verify and prepare the existing FastAPI backend for device registration from the React dashboard.
+
+REQUIREMENTS:
+1. Inspect the existing POST /devices endpoint.
+2. Review the request and response Pydantic schemas.
+3. Identify all required device registration fields.
+4. Verify device name, device type and IP validation.
+5. Confirm duplicate-device handling.
+6. Confirm successful SQLite persistence.
+7. Confirm appropriate HTTP status codes and useful error messages.
+8. Verify frontend access through existing CORS or Vite proxy setup.
+9. Preserve structured logging and X-Request-ID.
+10. Preserve existing endpoints, database records, filtering, pagination and seed data.
+11. Make only necessary backend fixes; do not redesign working functionality.
+12. Add or update automated tests only where needed.
+13. Run the complete backend test suite.
+
+DO NOT:
+- Create React components or modify the frontend.
+- Add new endpoints unnecessarily or replace SQLite.
+- Introduce authentication, Docker or cloud services.
+
+REPORT:
+- Existing POST /devices request schema
+- Backend changes, if any
+- Test results
+- Confirmation backend is ready for React
+
+IMPORTANT: Preserve all completed Hands-on 1–5 functionality.

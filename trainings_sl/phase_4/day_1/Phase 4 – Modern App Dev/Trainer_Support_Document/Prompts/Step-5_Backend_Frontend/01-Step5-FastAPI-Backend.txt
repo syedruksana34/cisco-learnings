@@ -1,0 +1,90 @@
+PROJECT: NetPulse
+CAPSTONE HANDS-ON 5:
+ADVANCED FASTAPI APPLICATION DEVELOPMENT
+
+ROLE:
+Act as a senior Python/FastAPI engineer and trainer.
+
+OBJECTIVE:
+Extend the existing NetPulse application with device filtering, search,
+deterministic pagination and environment-based configuration.
+
+IMPORTANT:
+Work ONLY in the existing NetPulse project. Inspect actual code before
+making changes. Do not recreate the application.
+
+BASELINE:
+- Hands-on 1-4 already completed
+- FastAPI layered architecture
+- SQLite + SQLAlchemy 2.x
+- DeviceRepository Protocol and DeviceService
+- Existing device and alert APIs
+- structlog JSON logging and X-Request-ID tracing
+- Existing automated tests
+
+CRITICAL PROJECT CONTRACTS:
+1. Preserve the actual device_id contract in the existing implementation.
+2. Preserve the existing simulated probe HTTP method and path.
+3. Preserve all eight existing API operations.
+4. Preserve SQLite records and transaction behavior.
+5. GET /devices must continue returning a JSON list.
+6. Preserve existing HTTP response behavior.
+
+TASK 1 - REVIEW EXISTING IMPLEMENTATION
+Inspect routes, models, services, repositories, database dependencies and tests.
+Run python -m pytest -q and record the actual baseline.
+Identify the existing GET /devices implementation.
+
+TASK 2 - DEVICE FILTERING
+Extend GET /devices with optional status (online/offline) and device_type
+(router/switch/server). Use SQLAlchemy select().where() in repository layer.
+Support combined filters and [] for no matches. Invalid values return 422.
+
+TASK 3 - DEVICE SEARCH
+Add optional search parameter for case-insensitive device-name search and
+IP-address substring search. Combine with filters. Use bound SQLAlchemy
+expressions and escape literal % and _ in LIKE patterns. Never use raw SQL
+string concatenation.
+
+TASK 4 - DETERMINISTIC PAGINATION
+Add optional limit (1-100) and offset (>=0).
+- Neither supplied: return ALL matching devices (legacy behavior).
+- limit supplied: use limit and offset=0 if absent.
+- offset supplied without limit: use DEFAULT_PAGE_SIZE (initially 20).
+Filter before pagination. Sort by unique device_id before slicing.
+Keep JSON list response; do not introduce a wrapper.
+Invalid limit=0, limit=101 and offset=-1 must return 422.
+
+TASK 5 - CENTRALIZED CONFIGURATION
+Install pydantic-settings and create app/config.py.
+Support APP_NAME, LOG_LEVEL, DATABASE_URL, DEFAULT_PAGE_SIZE=20.
+Preserve existing SQLite database path and get_session dependency.
+Replace competing os.getenv DATABASE_URL usage with settings object.
+Add .env to .gitignore; do not log secrets or database URLs.
+
+TASK 6 - PRESERVE LOGGING AND TRACING
+Preserve structlog, X-Request-ID, request_completed events, durations,
+correlated business events and safe logging. Avoid duplicate handlers,
+raw query strings and request bodies.
+
+TASK 7 - AUTOMATED TESTS
+Preserve all existing tests. Add isolated SQLite tests for status/type
+filtering, combined filters, name/IP search, literal % and _, empty results,
+backward compatibility, pagination, invalid parameters, existing alert/probe
+operations, request tracing and persistence. Never modify normal netpulse.db.
+Report actual passing-test count, not a hardcoded number.
+
+TASK 8 - README AND SWAGGER
+Document filtering, search, pagination, environment settings and API examples.
+Verify GET /devices; ?status=offline; ?device_type=router; ?search=Cisco;
+?limit=2; ?limit=2&offset=2; ?offset=2; invalid limit/offset values.
+Preserve all eight original API operations.
+
+FINAL VALIDATION:
+Run python -m pytest -q. Report changed files, actual test results,
+verified API behavior and any limitations.
+
+STRICT CONSTRAINTS:
+SQLite only. Existing NetPulse project only. No MySQL, MongoDB, Docker,
+cloud deployment, authentication, Secure Coding extension or Step 6.
+Stop after completing backend Hands-on 5.

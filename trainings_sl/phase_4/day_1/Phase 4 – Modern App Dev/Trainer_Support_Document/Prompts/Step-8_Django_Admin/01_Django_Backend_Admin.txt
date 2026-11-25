@@ -1,0 +1,13 @@
+NETPULSE CAPSTONE | HANDS-ON 8 | PROMPT 1: DJANGO BACKEND AND ADMIN
+Role: Senior Django developer and beginner-level technical trainer.
+Create an independent Django implementation of the NetPulse network-monitoring business scenario in this NEW VS Code workspace. This is the same capstone scenario, but NOT an integration with the earlier FastAPI/React application.
+
+1. Check Python; create .venv and give Windows PowerShell activation instructions. Install Django and generate requirements.txt and .gitignore (exclude .venv, db.sqlite3, __pycache__, .env).
+2. Create Django project netpulse_django at workspace root (manage.py in root) and app devices. Register the app. Use the default independent SQLite database.
+3. Create Device model: device_id unique CharField(20), device_name CharField(100), device_type choices Router/Switch/Server, ip_address GenericIPAddressField, status choices Online/Offline default Online, location CharField(100), created_at auto_now_add. Add readable __str__.
+4. Create/apply migrations; run python manage.py check, makemigrations, migrate, makemigrations --check --dry-run, showmigrations devices.
+5. Register Device in Django Admin: list_display device ID/name/type/IP/status/location, search by ID/name/IP, filter by type/status, ordering by device ID. Use default Django Admin CRUD.
+6. Explain interactive python manage.py createsuperuser; do not hardcode credentials or run it noninteractively.
+7. Add Django model/admin tests for defaults, uniqueness, __str__, registration. Run python manage.py test devices.
+8. Create README with setup, Django ORM, migration and admin instructions.
+Do not implement frontend, seed data, FastAPI, React, DRF, external APIs or Docker. Do not access any previous NetPulse database. Report files, commands and test results; STOP.

@@ -1,0 +1,5 @@
+PROJECT: NetPulse | HANDS-ON 7 | ALERT ANALYTICS DEMONSTRATION
+
+Inspect existing SQLite alert model, analytics repository and database path. Explain which tables and relationships exist. Back up the local netpulse.db before any write. Only if the schema supports alerts, create a small set of clearly marked DEMO alerts referencing existing devices (including at least two alerts for one device). Make the seed operation IDEMPOTENT, repeatable and reversible, with cleanup limited to demo alerts. Do not modify device rows, delete existing alerts or reset the database. If no alerts schema exists, report the gap and STOP for approval.
+
+Validate actual JOIN, GROUP BY, HAVING and latest-alert query results, confirm GET /analytics/devices and the dashboard reflect the seeded alerts, and check a second seed run does not duplicate alerts. Add automated isolated tests. Run python -m pytest -q and git diff --check. Report changed files, backup path, demo alert IDs, query outcomes and test counts. Do not change the React design or introduce unrelated features.

@@ -1,0 +1,3 @@
+Fictional restaurant policy, version 1.0, effective 2026-01-01.
+Orders may be cancelled before preparation begins. A cancelled order restores available portions.
+There are no real payments or deliveries in this demonstration.

@@ -1,0 +1,47 @@
+PROJECT: NetPulse
+STEP 5: SQLITE SAMPLE DEVICE SEED DATA
+
+Extend the existing NetPulse project. Do not recreate the application.
+
+Requirements:
+1. Inspect the actual SQLAlchemy device model, repository, service and
+   database/session configuration before writing code.
+2. Create scripts/seed_devices.py using the existing database conventions.
+3. Insert the following 15 sample network devices into the existing SQLite DB.
+4. Preserve all existing device and alert records.
+5. Do not assume device IDs are generated or supplied: inspect the actual
+   creation contract and adapt to it.
+6. If device status cannot be supplied at registration, use the existing
+   status-update workflow to set the required value.
+7. Make the script idempotent: identify already-seeded devices by a stable
+   unique attribute such as device ID or name, skip duplicates and report
+   inserted/skipped totals.
+8. Do not delete, overwrite or reset unrelated existing records.
+9. Do not create a second database, duplicate ORM models or new API endpoints.
+10. Run the seed script twice and verify the second run adds no duplicates.
+11. Run python -m pytest -q and report actual results.
+12. Verify that the React dashboard retrieves all persisted devices.
+
+SEED DATA:
+Device ID | Device Name | Type | IP Address | Status
+RTR-101 | Chennai-Core-Router | router | 10.250.101.1 | online
+RTR-102 | Bengaluru-Edge-Router | router | 10.250.101.2 | online
+RTR-103 | Hyderabad-Branch-Router | router | 10.250.101.3 | offline
+RTR-104 | Chennai-WAN-Router | router | 10.250.101.4 | online
+RTR-105 | Bengaluru-Backup-Router | router | 10.250.101.5 | online
+SWT-201 | Chennai-Core-Switch | switch | 10.250.102.1 | online
+SWT-202 | Bengaluru-Access-Switch | switch | 10.250.102.2 | online
+SWT-203 | Hyderabad-Floor-Switch | switch | 10.250.102.3 | offline
+SWT-204 | Chennai-Distribution-Switch | switch | 10.250.102.4 | online
+SWT-205 | Bengaluru-Lab-Switch | switch | 10.250.102.5 | online
+SRV-301 | Chennai-App-Server | server | 10.250.103.1 | online
+SRV-302 | Bengaluru-Database-Server | server | 10.250.103.2 | online
+SRV-303 | Hyderabad-File-Server | server | 10.250.103.3 | offline
+SRV-304 | Chennai-Monitoring-Server | server | 10.250.103.4 | online
+SRV-305 | Bengaluru-Backup-Server | server | 10.250.103.5 | offline
+
+Expected seed dataset: 15 devices, 11 online and 4 offline.
+If one existing online device was already registered, the dashboard should
+show 16 total, 12 online and 4 offline. Do not hardcode these totals.
+
+Stop after seed-data insertion, idempotency and verification.

@@ -1,0 +1,26 @@
+PROJECT: NetPulse
+STEP 2: Python Backend Fundamentals
+
+Extend the existing Step 1 application.
+Do not recreate the project.
+
+Requirements:
+1. Preserve all Step 1 API endpoints.
+2. Add GET /devices/summary.
+3. Calculate total devices, online devices,
+   offline devices and device-type counts.
+4. Keep aggregation logic in the service layer.
+5. Register the static summary route before the
+   dynamic UUID device route.
+6. Add POST /devices/{device_id}/probe.
+7. Simulate reachability using the final IPv4 octet:
+   - Even = reachable
+   - Odd = unreachable
+8. Return device_id, result and simulated=true.
+9. Do not contact real network devices.
+10. Probe must not modify device status or alerts.
+11. Add automated tests for both features.
+12. Update README with the simulation rules.
+
+Preserve all existing functionality.
+Run the full test suite and report results.

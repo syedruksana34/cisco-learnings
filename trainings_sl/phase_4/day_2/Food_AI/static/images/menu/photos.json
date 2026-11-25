@@ -1,0 +1,212 @@
+{
+  "Masala Dosa": {
+    "path": "/static/images/menu/masala-dosa.jpg",
+    "author": "Marajozkee",
+    "source": "https://commons.wikimedia.org/wiki/File:Masala_dosa_01.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Paneer Biryani": {
+    "path": "/static/images/menu/paneer-biryani.jpg",
+    "author": "Vis M",
+    "source": "https://commons.wikimedia.org/wiki/File:Paneer_Biriyani_02.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Idli Sambar": {
+    "path": "/static/images/menu/idli-sambar.jpg",
+    "author": "Sutapa Pal",
+    "source": "https://commons.wikimedia.org/wiki/File:Idli_Sambar-Noida-UP-SP004.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Vegetable Pulao": {
+    "path": "/static/images/menu/vegetable-pulao.jpg",
+    "author": "Sumitsurai",
+    "source": "https://commons.wikimedia.org/wiki/File:Andhra_Vegetable_Pulao_-_WCI-Day0-Dinner.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Dal Tadka": {
+    "path": "/static/images/menu/dal-tadka.jpg",
+    "author": "Southofindia",
+    "source": "https://commons.wikimedia.org/wiki/File:Tadka_Dal.jpg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "Chicken Biryani": {
+    "path": "/static/images/menu/chicken-biryani.jpg",
+    "author": "Shivani shipra",
+    "source": "https://commons.wikimedia.org/wiki/File:Chicken_biryani_02-06-2015_(India).jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Egg Curry": {
+    "path": "/static/images/menu/egg-curry.jpg",
+    "author": "https://onlybestrecipes.com/egg-curry-recipeegg-curry-recipe/",
+    "source": "https://commons.wikimedia.org/wiki/File:Spicy_Anda_Curry.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Tomato Soup": {
+    "path": "/static/images/menu/tomato-soup.jpg",
+    "author": "E4024",
+    "source": "https://commons.wikimedia.org/wiki/File:Tomato_soup,_Turkish_style.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Gulab Jamun": {
+    "path": "/static/images/menu/gulab-jamun.jpg",
+    "author": "Suyash.dwivedi",
+    "source": "https://commons.wikimedia.org/wiki/File:Two_Gulab_Jamun_in_a_plate_01.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Mango Lassi": {
+    "path": "/static/images/menu/mango-lassi.jpg",
+    "author": "Misaochan",
+    "source": "https://commons.wikimedia.org/wiki/File:Mango_Lassi_.jpg",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0"
+  },
+  "Plain Dosa": {
+    "path": "/static/images/menu/plain-dosa.jpg",
+    "author": "Libreravi",
+    "source": "https://commons.wikimedia.org/wiki/File:Plain_Dosa_from_North_India.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Onion Uttapam": {
+    "path": "/static/images/menu/onion-uttapam.jpg",
+    "author": "Raj.Ranveer",
+    "source": "https://commons.wikimedia.org/wiki/File:Onion_%22Uttapam%22.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Medu Vada": {
+    "path": "/static/images/menu/medu-vada.jpg",
+    "author": "Thamizhpparithi Maari",
+    "source": "https://commons.wikimedia.org/wiki/File:Aesthetic_Medu_Vadai.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Poha": {
+    "path": "/static/images/menu/poha.jpg",
+    "author": "Mrsagar105",
+    "source": "https://commons.wikimedia.org/wiki/File:Poha_with_tomato_sause.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Palak Paneer": {
+    "path": "/static/images/menu/palak-paneer.jpg",
+    "author": "Lopanayak",
+    "source": "https://commons.wikimedia.org/wiki/File:Palakpaneer_Rayagada_Odisha_0009.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Chole Masala": {
+    "path": "/static/images/menu/chole-masala.jpg",
+    "author": "Divya Kudua",
+    "source": "https://commons.wikimedia.org/wiki/File:Chole_Masala_India.jpg",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  "Chicken Curry": {
+    "path": "/static/images/menu/chicken-curry.jpg",
+    "author": "Gaurav Dhwaj Khadka",
+    "source": "https://commons.wikimedia.org/wiki/File:Chicken_Curry_9.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Rajma Masala": {
+    "path": "/static/images/menu/rajma-masala.jpg",
+    "author": "Gaurav Nemade",
+    "source": "https://commons.wikimedia.org/wiki/File:Rajma_Masala_(32081557778).jpg",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "Vegetable Samosa": {
+    "path": "/static/images/menu/vegetable-samosa.jpg",
+    "author": "Guilhem Vellut from Paris, France",
+    "source": "https://commons.wikimedia.org/wiki/File:Vegetable_Samosa,_Black_Pinky,_Paris_14_February_2017.jpg",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0"
+  },
+  "Paneer Tikka": {
+    "path": "/static/images/menu/paneer-tikka.jpg",
+    "author": "Sonja Pauen - Stanhopea",
+    "source": "https://commons.wikimedia.org/wiki/File:Panir_Tikka_Indian_cheese_grilled.jpg",
+    "license": "CC BY 2.0 de",
+    "license_url": "https://creativecommons.org/licenses/by/2.0/de/deed.en"
+  },
+  "Chicken Tikka": {
+    "path": "/static/images/menu/chicken-tikka.jpg",
+    "author": "Satdeep Gill",
+    "source": "https://commons.wikimedia.org/wiki/File:Chicken_tikka_in_Araku_Valley,_Andhra_Pradesh_01.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Vegetable Pakora": {
+    "path": "/static/images/menu/vegetable-pakora.jpg",
+    "author": "Biswarup Ganguly",
+    "source": "https://commons.wikimedia.org/wiki/File:Vegetable_Pakora_-_Simurali_2015-01-30_5526.JPG",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0"
+  },
+  "Rasmalai": {
+    "path": "/static/images/menu/rasmalai.jpg",
+    "author": "Shreya13jain",
+    "source": "https://commons.wikimedia.org/wiki/File:Rasmalai_with_carrot.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Rasgulla": {
+    "path": "/static/images/menu/rasgulla.jpg",
+    "author": "Prakrutim",
+    "source": "https://commons.wikimedia.org/wiki/File:Rasgulla_With_Rabdi.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Kheer": {
+    "path": "/static/images/menu/kheer.jpg",
+    "author": "stu spivack",
+    "source": "https://commons.wikimedia.org/wiki/File:Kheer.jpg",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0"
+  },
+  "Kulfi": {
+    "path": "/static/images/menu/kulfi.jpg",
+    "author": "Gaurav Dhwaj Khadka",
+    "source": "https://commons.wikimedia.org/wiki/File:Kulfi_3.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Sweet Lassi": {
+    "path": "/static/images/menu/sweet-lassi.jpg",
+    "author": "Nivasdurai",
+    "source": "https://commons.wikimedia.org/wiki/File:Lassi_(Sweet).JPG",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Masala Chai": {
+    "path": "/static/images/menu/masala-chai.jpg",
+    "author": "Ganesh Mohan T",
+    "source": "https://commons.wikimedia.org/wiki/File:Masala_Chai.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Fresh Lime Soda": {
+    "path": "/static/images/menu/fresh-lime-soda.jpg",
+    "author": "Manjeshwari poet mysore",
+    "source": "https://commons.wikimedia.org/wiki/File:Nimbu_Soda_Or_Lemon_Soda.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  "Filter Coffee": {
+    "path": "/static/images/menu/filter-coffee.jpg",
+    "author": "Dev Jadiya",
+    "source": "https://commons.wikimedia.org/wiki/File:South_Indian_filter_coffee_served_in_traditional_stainless_steel_davara_and_tumbler_at_Rameshwaram_Cafe_in_Bengaluru_Airport,_India.jpg",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0"
+  }
+}

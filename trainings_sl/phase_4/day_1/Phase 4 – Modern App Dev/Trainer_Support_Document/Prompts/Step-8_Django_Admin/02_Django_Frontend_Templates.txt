@@ -1,0 +1,13 @@
+NETPULSE CAPSTONE | HANDS-ON 8 | PROMPT 2: DJANGO FRONTEND
+Continue the existing netpulse_django project from Prompt 1. Preserve Device model, migrations, SQLite and Django Admin. Local development has been verified on http://127.0.0.1:8085/admin/; use port 8085 if available.
+
+1. Build Django server-rendered frontend using views, urls, templates and plain CSS only; no React, FastAPI, REST APIs or frontend frameworks.
+2. Configure routes: / overview dashboard, /devices/ inventory, /admin/ existing Django Admin.
+3. Create base.html, dashboard.html, device_list.html with Django template inheritance (extends, block, for, if). Use clean NetPulse enterprise design: navy headings, white cards, pale background, blue accents, responsive inventory table.
+4. Dashboard: dynamic total devices, online, offline and distinct location counts from Django ORM. No hardcoded numbers.
+5. Inventory table: device ID/name/type/IP/status/location/created date. Provide empty state.
+6. Server-side GET filtering: search by device name, ID, IP or location; filter device_type and status; apply/clear filters. Preserve safe query parameters and avoid changing database records.
+7. Add Device must link to functional Django Admin device creation page (use URL reversing rather than hardcoding).
+8. Explain MTV request flow: browser -> URL -> view -> model/ORM -> SQLite -> template -> browser.
+9. Add tests for dashboard counts, inventory, search, filters and empty state. Run python manage.py check and python manage.py test.
+Do not seed demo records yet; do not change the Device model unless correcting a verified defect. Report files, routes and test results; STOP.

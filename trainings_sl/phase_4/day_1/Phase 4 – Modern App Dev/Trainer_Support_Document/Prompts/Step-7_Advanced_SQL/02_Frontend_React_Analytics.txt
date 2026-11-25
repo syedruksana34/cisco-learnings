@@ -1,0 +1,8 @@
+PROJECT: NetPulse | HANDS-ON 7 | FRONTEND
+React Analytics Dashboard
+
+Continue the existing React + Vite + TypeScript dashboard from Hands-on 6. Do not recreate it. Inspect the ACTUAL GET /analytics/devices JSON response and existing API client/components before coding.
+
+Keep Total/Online/Offline cards, Add Device, search, status/type filters, Clear Filters and device inventory unchanged. Add Device Analytics with grouped Router/Switch/Server online/offline horizontal stacked bars (simple CSS bars are acceptable; avoid extra dependencies unless justified). Add Alert Analytics with total alerts, repeated-alert-device count, repeated-alert table and latest-alert cards. Use ONLY real API values, never hardcoded analytics. Implement typed API response, loading/empty/error states, responsive styling and refresh after successful registration. Preserve existing dashboard design. No pagination UI or status editing.
+
+Run npm run build and report modified files, API mapping, build output and manual checks. Do NOT edit backend or DB. Stop after frontend validation.

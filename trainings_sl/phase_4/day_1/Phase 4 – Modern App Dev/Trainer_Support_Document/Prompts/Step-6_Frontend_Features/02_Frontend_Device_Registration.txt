@@ -1,0 +1,39 @@
+PROJECT: NetPulse
+STEP 6 — LEVEL 1: REACT DEVICE REGISTRATION
+
+Continue the existing React dashboard from Step 5.
+Do not recreate the frontend.
+
+OBJECTIVE:
+Allow users to register network devices directly from the React dashboard.
+
+REQUIREMENTS:
+1. Inspect existing React components and API service.
+2. Use the verified FastAPI POST /devices endpoint.
+3. Add an "Add Device" button to the dashboard.
+4. Open a clean registration form when clicked.
+5. Use the actual backend request schema and all required fields.
+6. Use existing device-type values and validation rules.
+7. Validate required inputs before submission.
+8. Submit through the existing API service.
+9. Display a loading state during submission.
+10. Show success feedback after registration.
+11. Handle validation, duplicate and network errors.
+12. Reset or close the form after success.
+13. Refresh inventory and total/online/offline summary cards.
+14. Preserve existing dashboard layout and styling.
+15. Ensure the form works on desktop and mobile.
+16. Run React production build and resolve errors.
+
+DO NOT:
+- Modify backend code or create new API endpoints.
+- Add search, filtering, pagination or status editing in this level.
+- Introduce authentication or unnecessary dependencies.
+
+REPORT:
+- Files created or modified
+- API integration details
+- Build results
+- Manual verification steps
+
+IMPORTANT: Preserve Hands-on 5 dashboard features.

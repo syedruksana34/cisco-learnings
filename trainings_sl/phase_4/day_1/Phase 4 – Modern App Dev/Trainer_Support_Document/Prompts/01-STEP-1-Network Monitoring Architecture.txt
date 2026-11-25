@@ -1,0 +1,30 @@
+PROJECT: NetPulse
+STEP 1: Network Monitoring Architecture
+
+Act as a senior Python/FastAPI engineer.
+
+Create a modular FastAPI network monitoring application.
+
+Requirements:
+1. Use Python, FastAPI, Pydantic and pytest.
+2. Implement a layered architecture:
+   - API routes
+   - Pydantic models
+   - Service layer
+   - Repository layer
+3. Use an in-memory repository for devices and alerts.
+4. Generate UUIDs for registered devices.
+5. Implement device registration, listing, retrieval
+   and status updates.
+6. Implement alert listing and health-check endpoints.
+7. Create an offline alert only when a device
+   transitions from online to offline.
+8. Handle duplicate devices, missing devices and
+   invalid requests with appropriate HTTP responses.
+9. Add automated tests.
+10. Document local setup and Swagger usage.
+
+Do not add databases, authentication, React,
+Docker or cloud services.
+
+Run the tests and report results.

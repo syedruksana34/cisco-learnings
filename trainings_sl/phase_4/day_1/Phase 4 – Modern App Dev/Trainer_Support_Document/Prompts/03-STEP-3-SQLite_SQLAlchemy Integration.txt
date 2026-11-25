@@ -1,0 +1,30 @@
+PROJECT: NetPulse
+STEP 3: SQLite + SQLAlchemy Integration
+
+Extend the existing Step 2 application.
+Do not recreate the project.
+
+Requirements:
+1. Install SQLAlchemy 2.x.
+2. Configure local SQLite database netpulse.db.
+3. Create SQLAlchemy ORM models for devices and alerts.
+4. Implement SQLAlchemyDeviceRepository.
+5. Preserve the existing repository interface.
+6. Use dependency injection for database sessions.
+7. Implement commit, rollback and session cleanup.
+8. Preserve UUID device IDs.
+9. Save device status changes and associated offline
+   alerts within one atomic transaction.
+10. Preserve all eight existing API operations.
+11. Maintain existing HTTP response behavior.
+12. Create an isolated SQLite CRUD demonstration
+    covering create, read, update and delete.
+13. Use temporary SQLite databases in tests.
+14. Verify device persistence across sessions
+    and application restarts.
+15. Document SQLite, SQLAlchemy and ASGI/Uvicorn.
+
+Do not add MySQL, MongoDB, Docker, React or cloud
+services.
+
+Run the full test suite and report results.

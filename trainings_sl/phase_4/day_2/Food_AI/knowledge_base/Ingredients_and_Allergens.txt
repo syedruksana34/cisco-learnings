@@ -1,0 +1,4 @@
+Fictional ingredient guide, version 1.0, effective 2026-01-01.
+Masala Dosa contains rice, lentils, potato and spices. Paneer Biryani contains milk.
+Gulab Jamun contains milk and wheat. Mango Lassi contains milk.
+Other allergens may be present. Cross-contact cannot be ruled out. Never guarantee allergen safety.

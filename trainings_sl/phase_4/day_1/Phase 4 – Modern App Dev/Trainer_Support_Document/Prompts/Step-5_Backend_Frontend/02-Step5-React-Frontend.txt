@@ -1,0 +1,41 @@
+PROJECT: NetPulse
+STEP 5: REACT FRONTEND - LEVEL 1 DASHBOARD
+
+Extend the existing NetPulse incremental capstone project.
+Do not recreate or modify the working FastAPI backend.
+
+Requirements:
+1. Inspect the existing repository and API routes before coding.
+2. Create or reuse frontend/ with React, TypeScript and Vite.
+3. Keep frontend separate from existing app/ backend and SQLite database.
+4. Connect React to the existing FastAPI GET /devices endpoint.
+5. Confirm the actual backend route and configure a Vite development proxy
+   so frontend requests reach FastAPI without hardcoding machine-specific paths.
+6. Preserve the actual API response field names and device_id type.
+7. Build a clean NetPulse Network Monitoring Dashboard.
+8. Display summary cards: Total Devices, Online Devices, Offline Devices.
+9. Calculate card counts from the fetched device records.
+10. Display a Device Inventory table with Device ID, Device Name,
+    Device Type, IP Address and Status.
+11. Show online and offline status clearly.
+12. Add loading, empty-data and API-error states.
+13. Make the dashboard responsive and professional.
+14. Do not use hardcoded sample device data in the dashboard.
+15. Do not implement registration forms, editing, alerts, probes, search,
+    filtering or pagination controls in this first React level.
+16. Preserve all existing backend tests and endpoints.
+
+Verification:
+- Start FastAPI from the project root:
+  python -m uvicorn app.main:app --reload
+- Start React from the project root:
+  cd frontend
+  npm install
+  npm run dev
+- Open FastAPI Swagger at http://127.0.0.1:8000/docs
+- Open the local URL shown by Vite (normally http://localhost:5173/).
+- Confirm React displays the device records returned by FastAPI.
+- Run npm run build and report the result.
+
+Do not use absolute paths from the trainer's computer.
+Stop after React Level 1 dashboard and inventory display work.

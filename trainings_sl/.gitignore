@@ -1,0 +1,25 @@
+# Python environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Environment variables
+.env
+
+# IDE files
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+
+# Downloaded installers
+*.zip
+mysql-workbench-*/
+*.exe
+*.deb
+*.AppImage

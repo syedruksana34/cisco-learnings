@@ -1,0 +1,36 @@
+PROJECT: NetPulse
+STEP 4: Structured Logging & Request Tracing
+
+Extend the existing Step 3 application.
+Do not recreate the project.
+
+Requirements:
+1. Install and configure structlog.
+2. Produce structured JSON application logs.
+3. Include timestamps, log levels and named loggers.
+4. Implement X-Request-ID middleware.
+5. Accept valid incoming request IDs containing
+   1-64 alphanumeric, underscore or hyphen characters.
+6. Generate UUID-based IDs when missing or invalid.
+7. Return X-Request-ID in response headers.
+8. Use contextvars to correlate request and
+   business-event logs.
+9. Measure request duration with time.perf_counter().
+10. Log request_completed events with method, path,
+    status code, duration and request ID.
+11. Log device registration, status changes and
+    offline-alert creation.
+12. Log appropriate warnings and unexpected errors.
+13. Redact password, token, api_key, authorization
+    and secret fields.
+14. Never log raw credentials or request bodies.
+15. Preserve all existing API operations.
+16. Preserve SQLite persistence and transactions.
+17. Add isolated automated tests for logging,
+    request IDs, redaction and error handling.
+18. Update README with logging examples.
+
+Do not add new endpoints, external monitoring,
+React, Docker or cloud services.
+
+Run the full test suite and report results.

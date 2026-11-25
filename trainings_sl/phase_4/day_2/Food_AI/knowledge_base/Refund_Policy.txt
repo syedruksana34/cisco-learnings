@@ -1,0 +1,2 @@
+Fictional refund policy, version 1.0, effective 2026-01-01.
+This demonstration does not process payments and therefore does not issue actual refunds.

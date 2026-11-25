@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Savour House | Restaurant &amp; Ordering</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+<svg class="icon-definitions" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="robot-face" viewBox="0 0 64 64">
+    <path d="M32 13V8" stroke="#47785b" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="32" cy="7" r="3" fill="#e69a72"/>
+    <rect x="10" y="16" width="44" height="37" rx="14" fill="#fffdf8" stroke="#47785b" stroke-width="2.5"/>
+    <path d="M10 28H7v10h3M54 28h3v10h-3" stroke="#47785b" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="23" cy="32" r="3" fill="#355b46"/><circle cx="41" cy="32" r="3" fill="#355b46"/>
+    <circle cx="17.5" cy="39" r="3" fill="#f3b3a5"/><circle cx="46.5" cy="39" r="3" fill="#f3b3a5"/>
+    <path d="M27 41q5 5 10 0" fill="none" stroke="#47785b" stroke-width="2.5" stroke-linecap="round"/>
+  </symbol>
+</svg>
+<header class="site-header">
+  <a class="brand" href="/" aria-label="Savour House home"><span class="brand-mark" aria-hidden="true">✳</span><span>Savour <span class="brand-accent">House</span><small>THE GOOD FOOD CLUB</small></span></a>
+  <div id="account-bar" class="account-bar" hidden><span class="account-indicator" aria-hidden="true"></span><span id="identity"></span><button type="button" id="logout" class="secondary">Sign out <span aria-hidden="true">↗</span></button></div>
+</header>
+<main>
+  <section id="auth-screen" class="auth-screen">
+    <div class="auth-intro">
+      <span class="eyebrow"><span class="eyebrow-dot"></span> A LITTLE MORE DELICIOUS</span>
+      <h1>Good food.<br><em>Good mood.</em></h1>
+      <p>Your favorite dishes, a few clicks away. Discover the menu and let your little food buddy help with the rest.</p>
+      <div class="intro-points"><span>✦ Fresh picks</span><span>✦ Easy ordering</span><span>✦ A helpful sidekick</span></div>
+      <div class="intro-art" aria-hidden="true"><div class="art-orbit"><svg class="welcome-logo" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg"><circle cx="90" cy="90" r="85" fill="#fffdf6" stroke="#719777" stroke-width="2"/><circle cx="90" cy="90" r="77" fill="none" stroke="#e4d8c0" stroke-width="1"/><path d="M75 48c0-6 5-7 5-13m10 13c0-6 5-7 5-13m10 13c0-6 5-7 5-13M64 60h52c-3 12-14 19-26 19S67 72 64 60zm-4 23h60" fill="none" stroke="#719777" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><text x="90" y="109" text-anchor="middle" fill="#183c2c" font-family="Georgia, serif" font-size="21">Savour</text><text x="90" y="133" text-anchor="middle" fill="#183c2c" font-family="Georgia, serif" font-size="21">House</text><path d="M73 144h34" stroke="#e58b50" stroke-width="2" stroke-linecap="round"/></svg><span class="art-sparkle sparkle-one">✳</span><span class="art-sparkle sparkle-two">✦</span></div><div class="art-note"><span>✿</span><div>Made for good days<small>Something tasty awaits</small></div></div></div>
+    </div>
+    <div class="auth-card">
+      <span class="card-kicker">YOUR TABLE IS READY</span>
+      <h2 id="auth-heading">Welcome back<span class="heading-dot">.</span></h2>
+      <p class="auth-description">Sign in to browse the menu and chat with your food buddy.</p>
+      <form id="login" class="auth-form">
+        <label>Username <input name="username" required autocomplete="username" placeholder="Enter your username"></label>
+        <label>Password <input name="password" type="password" required autocomplete="current-password" placeholder="Enter your password"></label>
+        <button>Sign in <span aria-hidden="true">→</span></button>
+      </form>
+      <form id="signup" class="auth-form" hidden>
+        <label>Username <input name="username" minlength="3" maxlength="100" pattern="[A-Za-z0-9_.\-]+" required autocomplete="username" placeholder="Choose a username"></label>
+        <small>3–100 letters, numbers, dots, underscores or hyphens.</small>
+        <label>Password <input name="password" type="password" minlength="8" maxlength="128" pattern="[\x20-\x7E]+" required autocomplete="new-password" placeholder="Create a password"></label>
+        <small>8–128 printable English characters.</small>
+        <label>Confirm password <input name="confirm_password" type="password" required autocomplete="new-password" placeholder="Re-enter your password"></label>
+        <button>Create account <span aria-hidden="true">→</span></button>
+      </form>
+      <p id="auth-switch">New here? <button type="button" class="link-button" id="show-signup">Create an account</button></p>
+      <p id="signup-switch" hidden>Already have an account? <button type="button" class="link-button" id="show-login">Sign in</button></p>
+      <p id="auth-notice" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+  <div id="app-screen" hidden>
+  <div class="dashboard-hero">
+    <div><span class="eyebrow"><span class="eyebrow-dot"></span> GOOD FOOD STARTS HERE</span><h1>Something delicious<br><em>is waiting for you.</em></h1><p>Explore the menu, pick your favorites, and leave the rest to us.</p><a class="hero-link" href="#menu-section">Explore the menu <span aria-hidden="true">↓</span></a></div>
+    <div class="hero-art" aria-hidden="true"><img src="/static/images/serving-dish.svg" alt=""><i>✦</i><b>✳</b></div>
+  </div>
+  <p id="notice" role="status" aria-live="polite"></p>
+  <div class="dashboard-layout">
+    <section id="menu-section" class="panel menu-panel">
+      <div class="section-heading"><div><span class="card-kicker">PICK YOUR FAVORITES</span><h2>On the menu<span class="heading-dot">.</span></h2><p>A little something for every craving.</p></div><a href="/docs">API docs ↗</a></div>
+      <form id="filters" class="filters"><label>Search <input name="keyword" placeholder="Find a dish"></label>
+        <label>Category <select name="category"><option value="">All categories</option></select></label>
+        <label>Max price (INR) <input name="max_price" type="number" min="0.01" step="0.01" placeholder="Any price"></label>
+        <div class="diet-filters" role="group" aria-label="Dietary filters">
+          <label class="checkbox-label"><input name="vegetarian" type="checkbox"><span class="diet-symbol veg" aria-hidden="true"></span> Vegetarian only</label>
+          <label class="checkbox-label"><input name="nonvegetarian" type="checkbox"><span class="diet-symbol nonveg" aria-hidden="true"></span> Non-vegetarian only</label>
+        </div><button>Apply filters</button></form>
+      <div id="menu" class="cards"></div>
+      <p class="photo-credits-link"><a href="/static/photo-credits.html">Photo credits</a></p>
+    </section>
+    <aside class="sidebar">
+      <section class="panel basket-panel"><span class="card-kicker">YOUR SELECTION</span><h2>Your basket</h2><p>Good choices start here.</p><div id="basket"></div><button id="order">Place order <span aria-hidden="true">→</span></button></section>
+      <section class="panel orders-panel"><div class="orders-heading"><div><span class="card-kicker">KEEP TRACK</span><h2>My orders</h2></div><button id="refresh-orders" class="secondary">Refresh</button></div><div id="orders"></div></section>
+    </aside>
+  </div>
+    <div id="chat-widget">
+    <button id="chat-toggle" class="chat-toggle" type="button" aria-expanded="false" aria-controls="chat-panel" aria-label="Open Food Buddy chatbot"><svg class="robot-icon" aria-hidden="true"><use href="#robot-face"></use></svg><span class="chat-dot" aria-hidden="true"></span></button>
+    <section id="chat-panel" class="chat-panel" aria-label="Food Buddy chatbot" hidden>
+      <div class="chat-header"><div class="chat-title"><span class="bot-avatar" aria-hidden="true"><svg class="robot-icon"><use href="#robot-face"></use></svg></span><div><strong>Food Buddy</strong><p>Your little restaurant helper ✨</p></div></div><button id="chat-close" type="button" aria-label="Close chatbot">×</button></div>
+      <div class="chat-body">
+      <p class="bot-greeting">Hey there! 👋 Ask me about the menu, your orders or restaurant policies. I'll check with you before making changes.</p>
+      <p id="chat-notice" role="status" aria-live="polite"></p>
+      <div class="row"><label>Conversation <select id="sessions" aria-label="Conversation"></select></label>
+        <button id="new-session">New chat</button></div>
+      <div id="messages" class="messages" aria-live="polite"></div>
+      <div id="pending"></div>
+      <form id="chat"><label for="message">Your message</label><textarea id="message" maxlength="4000" placeholder="Ask me anything about the menu..." required></textarea>
+        <button>Send message <span aria-hidden="true">↗</span></button><span id="loading" hidden>Thinking…</span></form>
+      <small>Allergen information is not a safety guarantee; cross-contact is possible.</small>
+      </div>
+    </section>
+    </div>
+  <details id="admin-panel" class="panel" hidden><summary>Admin: menu and policy documents</summary>
+    <p>Sign in as an administrator. Enter an ID to update or disable an item.</p>
+    <form id="admin-item" class="admin-form">
+      <label>Item ID (for update/delete) <input name="id" type="number" min="1"></label>
+      <label>Title <input name="title" minlength="3" maxlength="120" required></label>
+      <label>Category <input name="category" maxlength="80" required></label>
+      <label>Price (INR) <input name="price" type="number" min="0.01" step="0.01" required></label>
+      <label>Portions <input name="capacity" type="number" min="0" required></label>
+      <label><input name="vegetarian" type="checkbox"> Vegetarian</label>
+      <label><input name="active" type="checkbox" checked> Active</label>
+      <div class="row"><button name="operation" value="create">Create</button>
+        <button name="operation" value="update">Update</button>
+        <button type="button" id="disable-item" class="secondary">Disable by ID</button></div>
+    </form>
+    <h3>Upload policy document</h3><form id="upload"><input name="file" type="file" accept=".txt,.pdf,.docx" required>
+      <button>Upload and index</button></form>
+    <h3>Order status</h3><form id="status-form"><label>Order ID <input name="id" type="number" min="1" required></label>
+      <label>Next status <select name="status"><option>PREPARING</option><option>READY</option><option>DELIVERED</option></select></label>
+      <button>Update status</button></form>
+    <h3>Customer feedback</h3>
+    <p>Private feedback from customers (latest 100).</p>
+    <button type="button" id="refresh-feedback" class="secondary">Load feedback</button>
+    <div id="admin-feedback"></div>
+  </details>
+  </div>
+</main>
+</body>
+</html>

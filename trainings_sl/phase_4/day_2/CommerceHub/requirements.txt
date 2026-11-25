@@ -1,0 +1,5 @@
+# FastAPI framework for building the web API
+fastapi
+
+# ASGI server used to run the application
+uvicorn

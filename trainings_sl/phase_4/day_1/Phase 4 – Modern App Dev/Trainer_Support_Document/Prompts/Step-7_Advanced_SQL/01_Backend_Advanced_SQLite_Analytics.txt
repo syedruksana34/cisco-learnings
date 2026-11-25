@@ -1,0 +1,11 @@
+PROJECT: NetPulse | HANDS-ON 7 | BACKEND
+Advanced SQLite Queries and Data Access
+
+Continue the SAME NetPulse repository from Hands-on 6. Do not recreate the project.
+Inspect the actual FastAPI application, SQLite schema, SQLAlchemy models, repositories, alert relationships, endpoints and tests before editing.
+
+Implement a read-only GET /analytics/devices endpoint, using existing architecture. Include total/online/offline devices; counts by device type and status; total alerts; alert counts per device; repeated-alert devices; and latest alerts. Use SQLAlchemy queries to demonstrate AND/OR conditions, COUNT, GROUP BY, INNER JOIN, LEFT OUTER JOIN, HAVING, ORDER BY and a latest-alert subquery where supported by the actual schema. Handle devices with no alerts and empty databases. Keep device and alert records unchanged. Use EXPLAIN QUERY PLAN to inspect relevant queries; add an index only if justified. Preserve request tracing, logging, existing endpoints and JSON contracts.
+
+Add isolated pytest coverage for grouped totals, joins, repeated alerts, latest alerts, empty results and the analytics endpoint. Run the full test suite. Report actual tables/columns used, files changed, example JSON response, query plan findings and test results.
+
+Do NOT edit React, reset the DB, replace SQLite, introduce microservices, authentication, pagination UI or cloud services. Stop after backend validation.
